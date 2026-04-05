@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://d13stw7uuc3qp"]
+
+[ext_resource type="Script" uid="uid://c8oatgr833per" path="res://Scene/Game.gd" id="1_wbfu4"]
+[ext_resource type="PackedScene" uid="uid://quyujoxg3huc" path="res://Scene/Item.tscn" id="2_xkndl"]
+[ext_resource type="Texture2D" uid="uid://cbfytbam6x1tj" path="res://Textures/Pink.png" id="3_ivtx6"]
+[ext_resource type="Texture2D" uid="uid://dckk8pj3elhv2" path="res://Textures/Red.png" id="4_3xgnh"]
+[ext_resource type="Texture2D" uid="uid://c5s3bxe1y2lw1" path="res://Textures/PinkRed.png" id="5_48ymf"]
+
+[node name="Game" type="Node2D" unique_id=1886787022]
+script = ExtResource("1_wbfu4")
+item_scene = ExtResource("2_xkndl")
+pink_texture = ExtResource("3_ivtx6")
+red_texture = ExtResource("4_3xgnh")
+pinkred_texture = ExtResource("5_48ymf")
+
+[node name="Background" type="Node2D" parent="." unique_id=1917897771]
+
+[node name="UI" type="Control" parent="." unique_id=1589599981]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2060142720]
+
+[node name="MenuButton" type="Button" parent="CanvasLayer" unique_id=1022672031]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Меню"
+
+[node name="ReadmeButton" type="Button" parent="CanvasLayer" unique_id=546313929]
+offset_left = 61.0
+offset_right = 135.0
+offset_bottom = 31.0
+text = "README"
+
+[node name="ReadmePanel" type="Panel" parent="CanvasLayer" unique_id=314864448]
+visible = false
+offset_top = 496.0
+offset_right = 428.0
+offset_bottom = 720.0
+
+[node name="Label" type="Label" parent="CanvasLayer/ReadmePanel" unique_id=1554181473]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Это прототип merge-игры.
+
+Как играть:
+- Перетаскивай одинаковые цветки друг на друга
+- Pink + Pink = Red
+- Red + Red = PinkRed
+
+Если не совпадает — цветок вернется назад."
+
+[node name="CloseButton" type="Button" parent="CanvasLayer/ReadmePanel" unique_id=139068747]
+layout_mode = 0
+offset_left = 351.0
+offset_right = 428.0
+offset_bottom = 31.0
+text = "Закрыть"
+
+[connection signal="pressed" from="CanvasLayer/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/ReadmeButton" to="." method="_on_readme_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/ReadmePanel/CloseButton" to="." method="_on_close_button_pressed"]

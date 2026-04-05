@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://conlq4u2kh15d"]
+
+[ext_resource type="Script" uid="uid://c6433l6h76uck" path="res://Scene/MainMenu.gd" id="1_rrxvj"]
+
+[node name="MainMenu" type="Control" unique_id=2025982742]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rrxvj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1060268712]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=2028570279]
+layout_mode = 2
+text = "Играть
+"
+
+[node name="Button2" type="Button" parent="VBoxContainer" unique_id=761372594]
+layout_mode = 2
+text = "README
+"
+
+[node name="Button3" type="Button" parent="VBoxContainer" unique_id=1591407405]
+layout_mode = 2
+text = "Выйти"
+
+[node name="ReadmePanel" type="Panel" parent="." unique_id=975240940]
+visible = false
+layout_mode = 0
+offset_top = 500.0
+offset_right = 423.0
+offset_bottom = 720.0
+
+[node name="ReadmeText" type="Label" parent="ReadmePanel" unique_id=1215274854]
+layout_mode = 0
+offset_right = 423.0
+offset_bottom = 220.0
+text = "В разработке"
+
+[node name="CloseButton" type="Button" parent="ReadmePanel" unique_id=563913037]
+layout_mode = 0
+offset_left = 346.0
+offset_right = 423.0
+offset_bottom = 41.0
+text = "Закрыть"
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_readme_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button3" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="ReadmePanel/CloseButton" to="." method="_on_close_button_pressed"]

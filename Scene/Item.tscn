@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://quyujoxg3huc"]
+
+[ext_resource type="Script" uid="uid://ds12j51t0ilk" path="res://Scene/Item.gd" id="1_hgyfl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k68pu"]
+size = Vector2(74, 66)
+
+[sub_resource type="LabelSettings" id="LabelSettings_tqdpn"]
+font_size = 22
+font_color = Color(0, 0, 0, 1)
+
+[node name="Item" type="Area2D" unique_id=571960501]
+script = ExtResource("1_hgyfl")
+
+[node name="FlowerIcon" type="Sprite2D" parent="." unique_id=1087516760]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=141126572]
+scale = Vector2(1.5, 1.5)
+shape = SubResource("RectangleShape2D_k68pu")
+
+[node name="Label" type="Label" parent="." unique_id=618346425]
+offset_left = -56.0
+offset_top = -50.0
+offset_right = 56.0
+offset_bottom = 50.0
+label_settings = SubResource("LabelSettings_tqdpn")
+horizontal_alignment = 1
+vertical_alignment = 1
