@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dckk8pj3elhv2"
-path="res://.godot/imported/Red.png-4d759494fa3fab861f5672c026446b37.ctex"
+uid="uid://d1ei1g8vx1ik8"
+path="res://.godot/imported/2_sprout_thin.png-d8d26800ec64dbccbc0649a12b893e01.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Red.png"
-dest_files=["res://.godot/imported/Red.png-4d759494fa3fab861f5672c026446b37.ctex"]
+source_file="res://Textures/2_sprout_thin.png"
+dest_files=["res://.godot/imported/2_sprout_thin.png-d8d26800ec64dbccbc0649a12b893e01.ctex"]
 
 [params]
 

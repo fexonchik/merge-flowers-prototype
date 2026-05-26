@@ -1,6 +1,20 @@
 [gd_scene format=3 uid="uid://conlq4u2kh15d"]
 
 [ext_resource type="Script" uid="uid://c6433l6h76uck" path="res://Scene/MainMenu.gd" id="1_rrxvj"]
+[ext_resource type="Texture2D" uid="uid://jxbyljwp26bj" path="res://Textures/MenuBG.jpg" id="2_d4yab"]
+[ext_resource type="FontFile" uid="uid://dc1uyqkwuun41" path="res://LilitaOne-Russian.ttf" id="3_o3nbu"]
+[ext_resource type="Texture2D" uid="uid://djvxce6ywngon" path="res://Textures/ButtonBG.png" id="4_v3p41"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6nqpc"]
+texture = ExtResource("4_v3p41")
+texture_margin_left = 15.0
+texture_margin_top = 15.0
+texture_margin_right = 15.0
+texture_margin_bottom = 15.0
+expand_margin_left = 30.0
+expand_margin_top = 30.0
+expand_margin_right = 30.0
+expand_margin_bottom = 30.0
 
 [node name="MainMenu" type="Control" unique_id=2025982742]
 layout_mode = 3
@@ -11,24 +25,89 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_rrxvj")
 
+[node name="TextureRect" type="TextureRect" parent="." unique_id=555355335]
+layout_mode = 0
+offset_left = -10.0
+offset_top = -8.0
+offset_right = 1288.0
+offset_bottom = 730.0
+texture = ExtResource("2_d4yab")
+expand_mode = 1
+
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1060268712]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 58.0
+offset_top = 46.999996
+offset_right = 196.76666
+offset_bottom = 296.07144
+scale = Vector2(1.3043479, 1.2727273)
 
-[node name="Button" type="Button" parent="VBoxContainer" unique_id=2028570279]
-layout_mode = 2
-text = "Играть
-"
+[node name="Button3" type="Button" parent="." unique_id=1591407405]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -128.0
+offset_top = -256.0
+offset_right = 122.0
+offset_bottom = -86.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1.0400001, 1)
+theme_override_fonts/font = ExtResource("3_o3nbu")
+theme_override_font_sizes/font_size = 38
+theme_override_styles/normal = SubResource("StyleBoxTexture_6nqpc")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_6nqpc")
+theme_override_styles/hover = SubResource("StyleBoxTexture_6nqpc")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_6nqpc")
+text = "Выйти"
 
-[node name="Button2" type="Button" parent="VBoxContainer" unique_id=761372594]
-layout_mode = 2
+[node name="Button2" type="Button" parent="." unique_id=761372594]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -88.0
+offset_right = 122.0
+offset_bottom = 82.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.0400001, 1)
+theme_override_fonts/font = ExtResource("3_o3nbu")
+theme_override_font_sizes/font_size = 38
+theme_override_styles/normal = SubResource("StyleBoxTexture_6nqpc")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_6nqpc")
+theme_override_styles/hover = SubResource("StyleBoxTexture_6nqpc")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_6nqpc")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_6nqpc")
 text = "README
 "
 
-[node name="Button3" type="Button" parent="VBoxContainer" unique_id=1591407405]
-layout_mode = 2
-text = "Выйти"
+[node name="Button" type="Button" parent="." unique_id=2028570279]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -128.0
+offset_top = 72.0
+offset_right = 122.0
+offset_bottom = 242.0
+grow_horizontal = 2
+scale = Vector2(1.0400001, 1)
+theme_override_fonts/font = ExtResource("3_o3nbu")
+theme_override_font_sizes/font_size = 38
+theme_override_styles/normal = SubResource("StyleBoxTexture_6nqpc")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_6nqpc")
+theme_override_styles/hover = SubResource("StyleBoxTexture_6nqpc")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_6nqpc")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_6nqpc")
+text = "Играть
+"
 
 [node name="ReadmePanel" type="Panel" parent="." unique_id=975240940]
 visible = false
@@ -50,7 +129,7 @@ offset_right = 423.0
 offset_bottom = 41.0
 text = "Закрыть"
 
-[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_readme_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/Button3" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="Button3" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_readme_button_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="ReadmePanel/CloseButton" to="." method="_on_close_button_pressed"]

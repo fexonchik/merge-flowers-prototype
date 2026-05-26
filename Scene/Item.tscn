@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://quyujoxg3huc"]
 
 [ext_resource type="Script" uid="uid://ds12j51t0ilk" path="res://Scene/Item.gd" id="1_hgyfl"]
+[ext_resource type="FontFile" uid="uid://dc1uyqkwuun41" path="res://LilitaOne-Russian.ttf" id="2_hgyfl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k68pu"]
 size = Vector2(74, 66)
@@ -11,6 +12,7 @@ font_color = Color(0, 0, 0, 1)
 
 [node name="Item" type="Area2D" unique_id=571960501]
 script = ExtResource("1_hgyfl")
+item_font = ExtResource("2_hgyfl")
 
 [node name="FlowerIcon" type="Sprite2D" parent="." unique_id=1087516760]
 
