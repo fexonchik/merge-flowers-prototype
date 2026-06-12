@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bnusvqxaem7wt"
-path="res://.godot/imported/icon_barn.png-ac2bce79c326aa30ba5d4a3574ad34a6.ctex"
+uid="uid://jxbyljwp26bj"
+path="res://.godot/imported/MenuBG1.jpg-cae1be7fa315176e9f0468de4361dff1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/icon_barn.png"
-dest_files=["res://.godot/imported/icon_barn.png-ac2bce79c326aa30ba5d4a3574ad34a6.ctex"]
+source_file="res://Textures/MenuBG1.jpg"
+dest_files=["res://.godot/imported/MenuBG1.jpg-cae1be7fa315176e9f0468de4361dff1.ctex"]
 
 [params]
 

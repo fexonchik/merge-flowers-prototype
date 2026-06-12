@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://b65towb3bmxo"]
+
+[ext_resource type="Script" uid="uid://bowmxd7ll1r1j" path="res://Scene/QuestSlot.gd" id="1_6yfwl"]
+[ext_resource type="FontFile" uid="uid://dc1uyqkwuun41" path="res://LilitaOne-Russian.ttf" id="2_28rtf"]
+[ext_resource type="Texture2D" uid="uid://dntmof1i72d70" path="res://Textures/SlotBG.png" id="2_x4r8d"]
+[ext_resource type="Texture2D" uid="uid://w5etx2a5splo" path="res://Textures/MoneyV2.png" id="3_x1jv0"]
+
+[node name="QuestSlot" type="Panel" unique_id=132169106]
+self_modulate = Color(0, 0, 0, 0)
+custom_minimum_size = Vector2(320, 170)
+anchors_preset = -1
+offset_right = 432.0
+offset_bottom = 272.0
+script = ExtResource("1_6yfwl")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1114576304]
+layout_mode = 1
+anchors_preset = -1
+offset_right = 416.0
+offset_bottom = 256.0
+texture = ExtResource("2_x4r8d")
+expand_mode = 1
+
+[node name="Icon" type="TextureRect" parent="." unique_id=1761931762]
+custom_minimum_size = Vector2(85, 85)
+layout_mode = 1
+anchors_preset = -1
+offset_left = 96.0
+offset_top = 88.0
+offset_right = 186.0
+offset_bottom = 178.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Title" type="Label" parent="." unique_id=195316302]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 112.0
+offset_top = 56.0
+offset_right = 314.5
+offset_bottom = 86.0
+scale = Vector2(1.0666666, 1.0672835)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_28rtf")
+theme_override_font_sizes/font_size = 26
+text = "задание"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="ClaimButton" type="Button" parent="." unique_id=1836079388]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 224.0
+offset_top = 192.0
+offset_right = 400.0
+offset_bottom = 233.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("2_28rtf")
+theme_override_font_sizes/font_size = 20
+text = "Сдать"
+icon = ExtResource("3_x1jv0")
+flat = true
+alignment = 2
+icon_alignment = 2
+
+[node name="ProgressLabel" type="Label" parent="." unique_id=904937910]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.0588235
+anchor_bottom = -0.0588235
+offset_left = 184.0
+offset_top = 112.0
+offset_right = 266.5
+offset_bottom = 141.0
+scale = Vector2(1.0666666, 1.0672835)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_28rtf")
+theme_override_font_sizes/font_size = 24
+text = "3 / 5"
+metadata/_edit_use_anchors_ = true
+
+[node name="RewardLabel" type="Label" parent="." unique_id=151639731]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.029411765
+anchor_bottom = 0.029411765
+offset_left = 184.0
+offset_top = 128.00002
+offset_right = 289.0
+offset_bottom = 154.00002
+scale = Vector2(1.0666666, 1.0672835)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_28rtf")
+theme_override_font_sizes/font_size = 22
+text = "Награда:"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="ClaimButton" to="." method="_on_claim_button_pressed"]

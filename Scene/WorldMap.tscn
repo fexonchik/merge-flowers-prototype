@@ -1,0 +1,237 @@
+[gd_scene format=3 uid="uid://bkjm75a0xowtf"]
+
+[ext_resource type="Texture2D" uid="uid://bbxac0k6s503f" path="res://Textures/MenuBG.png" id="1_l8kh1"]
+[ext_resource type="Script" uid="uid://csgg5ch8kxdt6" path="res://Scene/WorldMap.gd" id="1_psonl"]
+[ext_resource type="Texture2D" uid="uid://h5x5xlaxs7rj" path="res://Textures/GatesBuilding.png" id="2_aypb6"]
+[ext_resource type="Texture2D" uid="uid://bscprytgaua32" path="res://Textures/ShopBuilding.png" id="3_d26g4"]
+[ext_resource type="Texture2D" uid="uid://dykkb0jc65lv1" path="res://Textures/FermBuilding.png" id="4_psonl"]
+[ext_resource type="Texture2D" uid="uid://c1xgpigxyqxk6" path="res://Textures/BarnBuilding.png" id="5_pf4w3"]
+[ext_resource type="Texture2D" uid="uid://bc0in44g64mrp" path="res://Textures/Sign1.png" id="6_yrjga"]
+[ext_resource type="FontFile" uid="uid://dc1uyqkwuun41" path="res://LilitaOne-Russian.ttf" id="7_n2bu3"]
+[ext_resource type="PackedScene" uid="uid://do56iq4afb8mj" path="res://Scene/BarnUI.tscn" id="9_6hti5"]
+[ext_resource type="PackedScene" uid="uid://dn70d0jpbqc4p" path="res://Scene/BarnSlot.tscn" id="10_ymd8v"]
+[ext_resource type="Texture2D" uid="uid://eudcnqpwp83t" path="res://Textures/Money.png" id="11_02na8"]
+[ext_resource type="Texture2D" uid="uid://ea6kbxdqgj4n" path="res://Textures/MoneyBG.png" id="11_bkfj6"]
+[ext_resource type="PackedScene" uid="uid://bic52xb1jjpc4" path="res://Scene/ShopUI.tscn" id="13_5837l"]
+[ext_resource type="PackedScene" uid="uid://pkrhlqd70j4c" path="res://Scene/ShopSlot.tscn" id="14_7cdxa"]
+[ext_resource type="PackedScene" uid="uid://b0bqis1wxe1q2" path="res://Scene/QuestUI.tscn" id="15_f557b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f557b"]
+bg_color = Color(0.12591085, 0.12591085, 0.12591082, 0.8666667)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[node name="Control" type="Control" unique_id=433955801]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_psonl")
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1368767639]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+scale = Vector2(0.6682424, 0.66658014)
+texture = ExtResource("1_l8kh1")
+
+[node name="TextureButton" type="TextureButton" parent="TextureRect" unique_id=381823635]
+layout_mode = 0
+offset_left = -56.0
+offset_top = 488.00003
+offset_right = 694.0
+offset_bottom = 988.0
+scale = Vector2(0.82235855, 0.8716603)
+texture_normal = ExtResource("2_aypb6")
+
+[node name="TextureButton2" type="TextureButton" parent="TextureRect" unique_id=2064060607]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 407.99997
+offset_right = 1312.0
+offset_bottom = 1047.0
+scale = Vector2(0.5199112, 0.47392952)
+texture_normal = ExtResource("3_d26g4")
+
+[node name="TextureButton3" type="TextureButton" parent="TextureRect" unique_id=2048933703]
+layout_mode = 0
+offset_left = 1368.0
+offset_top = 600.0
+offset_right = 2088.0
+offset_bottom = 1080.0
+scale = Vector2(0.7, 0.7)
+texture_normal = ExtResource("4_psonl")
+
+[node name="TextureButton4" type="TextureButton" parent="TextureRect" unique_id=65753414]
+layout_mode = 0
+offset_left = 1008.0
+offset_top = 408.0
+offset_right = 1728.0
+offset_bottom = 888.0
+scale = Vector2(0.6, 0.6)
+texture_normal = ExtResource("5_pf4w3")
+
+[node name="TextureRect7" type="TextureRect" parent="." unique_id=1427831324]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 239.99998
+offset_right = 432.0
+offset_bottom = 496.0
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("6_yrjga")
+
+[node name="Label" type="Label" parent="TextureRect7" unique_id=305850335]
+layout_mode = 0
+offset_left = 119.99999
+offset_top = 90.00001
+offset_right = 296.0
+offset_bottom = 151.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_n2bu3")
+theme_override_font_sizes/font_size = 48
+text = "Ворота"
+
+[node name="TextureRect3" type="TextureRect" parent="." unique_id=1658883858]
+layout_mode = 0
+offset_left = 376.0
+offset_top = 160.0
+offset_right = 760.0
+offset_bottom = 416.0
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("6_yrjga")
+
+[node name="Label" type="Label" parent="TextureRect3" unique_id=289684829]
+layout_mode = 0
+offset_left = 119.999985
+offset_top = 90.00001
+offset_right = 264.0
+offset_bottom = 151.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("7_n2bu3")
+theme_override_font_sizes/font_size = 48
+text = "Лавка"
+
+[node name="TextureRect4" type="TextureRect" parent="." unique_id=2108817253]
+layout_mode = 0
+offset_left = 712.0
+offset_top = 168.0
+offset_right = 1096.0
+offset_bottom = 424.0
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("6_yrjga")
+
+[node name="Label" type="Label" parent="TextureRect4" unique_id=1936689227]
+layout_mode = 0
+offset_left = 119.99999
+offset_top = 90.00001
+offset_right = 296.0
+offset_bottom = 151.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("7_n2bu3")
+theme_override_font_sizes/font_size = 48
+text = "Амбар"
+
+[node name="TextureRect5" type="TextureRect" parent="." unique_id=303466029]
+layout_mode = 0
+offset_left = 976.0
+offset_top = 304.0
+offset_right = 1360.0
+offset_bottom = 560.0
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("6_yrjga")
+
+[node name="Label" type="Label" parent="TextureRect5" unique_id=1524864656]
+layout_mode = 0
+offset_left = 119.99999
+offset_top = 90.00001
+offset_right = 296.0
+offset_bottom = 151.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("7_n2bu3")
+theme_override_font_sizes/font_size = 48
+text = "Ферма"
+
+[node name="BarnUI" parent="." unique_id=1795725289 instance=ExtResource("9_6hti5")]
+visible = false
+slot_scene = ExtResource("10_ymd8v")
+
+[node name="TextureRect2" type="TextureRect" parent="." unique_id=24510249]
+layout_mode = 0
+offset_right = 576.0
+offset_bottom = 208.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_bkfj6")
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect2" unique_id=1167785503]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 32.0
+offset_right = 176.0
+offset_bottom = 174.0
+texture = ExtResource("11_02na8")
+
+[node name="Label" type="Label" parent="TextureRect2" unique_id=1657893477]
+layout_mode = 0
+offset_left = 176.0
+offset_top = 48.0
+offset_right = 416.0
+offset_bottom = 160.0
+scale = Vector2(0.99400586, 1.0317553)
+theme_override_colors/font_color = Color(0.5758521, 0.17704076, 0.084099, 1)
+theme_override_fonts/font = ExtResource("7_n2bu3")
+theme_override_font_sizes/font_size = 47
+text = "МОНЕТ:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ShopUI" parent="." unique_id=910780407 instance=ExtResource("13_5837l")]
+visible = false
+shop_slot_scene = ExtResource("14_7cdxa")
+
+[node name="QuestUI" parent="." unique_id=1344228361 instance=ExtResource("15_f557b")]
+visible = false
+
+[node name="TutorialLayer" type="CanvasLayer" parent="." unique_id=903348999]
+
+[node name="TutorialCharacter" type="TextureRect" parent="TutorialLayer" unique_id=337616086]
+anchors_preset = -1
+offset_left = 168.0
+offset_top = 216.0
+offset_right = 1528.0
+offset_bottom = 2496.0
+scale = Vector2(0.3, 0.3)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
+
+[node name="DialogueBox" type="Panel" parent="TutorialLayer" unique_id=350379645]
+offset_left = 552.0
+offset_top = 488.0
+offset_right = 992.0
+offset_bottom = 664.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_f557b")
+metadata/_edit_use_anchors_ = true
+
+[node name="TutorialLabel" type="Label" parent="TutorialLayer/DialogueBox" unique_id=1020539357]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 424.0
+offset_bottom = 160.0
+theme_override_fonts/font = ExtResource("7_n2bu3")
+theme_override_font_sizes/font_size = 30
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="TextureRect/TextureButton" to="." method="_on_texture_button_4_pressed"]
+[connection signal="pressed" from="TextureRect/TextureButton2" to="." method="_on_texture_button_2_pressed"]
+[connection signal="pressed" from="TextureRect/TextureButton3" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="TextureRect/TextureButton4" to="." method="_on_texture_button_3_pressed"]

@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://do56iq4afb8mj"]
+
+[ext_resource type="Script" uid="uid://bo8amw8od4mag" path="res://Scene/BarnUI.gd" id="1_bcmn4"]
+[ext_resource type="Texture2D" uid="uid://cre16qui1mewv" path="res://Textures/BarnMenu.png" id="2_oahbx"]
+[ext_resource type="Texture2D" uid="uid://dver4qvnb2y08" path="res://Textures/CloseButton.png" id="3_neeth"]
+
+[node name="BarnUI" type="CanvasLayer" unique_id=1795725289]
+script = ExtResource("1_bcmn4")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=959648446]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -410.0
+offset_top = -385.0
+offset_right = 410.0
+offset_bottom = 335.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_oahbx")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TextureRect" unique_id=838999402]
+layout_mode = 0
+offset_left = 122.0
+offset_top = 233.0
+offset_right = 722.0
+offset_bottom = 593.0
+
+[node name="GridContainer" type="GridContainer" parent="TextureRect/ScrollContainer" unique_id=2088983559]
+layout_mode = 2
+theme_override_constants/h_separation = -7
+theme_override_constants/v_separation = -8
+columns = 5
+
+[node name="TextureButton" type="TextureButton" parent="." unique_id=483329615]
+offset_left = 896.0
+offset_top = 80.0
+offset_right = 1106.0
+offset_bottom = 208.0
+scale = Vector2(0.5, 0.52)
+texture_normal = ExtResource("3_neeth")
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

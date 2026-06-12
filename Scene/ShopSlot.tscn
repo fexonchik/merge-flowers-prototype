@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://pkrhlqd70j4c"]
+
+[ext_resource type="Texture2D" uid="uid://0nvsvbnaakri" path="res://Textures/SlotBG1.png" id="1_ryap8"]
+[ext_resource type="FontFile" uid="uid://dc1uyqkwuun41" path="res://LilitaOne-Russian.ttf" id="2_qwmon"]
+
+[node name="ShopSlot" type="TextureRect" unique_id=1234575921]
+custom_minimum_size = Vector2(400, 150)
+anchors_preset = -1
+offset_top = -4.9964447
+offset_right = 453.88388
+offset_bottom = 248.76299
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.98703665, 1.0285192)
+size_flags_horizontal = 4
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1819084283]
+layout_mode = 1
+anchors_preset = -1
+offset_top = 4.8579016
+offset_right = 502.51428
+offset_bottom = 183.75587
+texture = ExtResource("1_ryap8")
+expand_mode = 1
+
+[node name="Icon" type="TextureRect" parent="." unique_id=1874782393]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.019000001
+anchor_bottom = 0.019000001
+offset_left = 89.15576
+offset_top = 31.149162
+offset_right = 248.63309
+offset_bottom = 153.11932
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8639859, 0.89279556)
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PriceLabel" type="Label" parent="." unique_id=735872043]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.021205377
+anchor_top = 0.049651757
+anchor_right = -0.004464304
+anchor_bottom = 0.049651757
+offset_left = 114.99068
+offset_top = 62.261856
+offset_right = 206.1727
+offset_bottom = 105.988785
+scale = Vector2(1.0666666, 1.0672835)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_qwmon")
+theme_override_font_sizes/font_size = 29
+text = "цена"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="BuyButton" type="Button" parent="." unique_id=2028830316]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.019000001
+anchor_bottom = 0.019000001
+offset_left = 210.7318
+offset_top = 46.705513
+offset_right = 413.35852
+offset_bottom = 101.152725
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_hover_color = Color(0.45882353, 0.19607843, 0.27058825, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_qwmon")
+theme_override_font_sizes/font_size = 29
+text = "sell"
+flat = true
+autowrap_mode = 2

@@ -1,18 +1,13 @@
 [gd_scene format=3 uid="uid://quyujoxg3huc"]
 
 [ext_resource type="Script" uid="uid://ds12j51t0ilk" path="res://Scene/Item.gd" id="1_hgyfl"]
-[ext_resource type="FontFile" uid="uid://dc1uyqkwuun41" path="res://LilitaOne-Russian.ttf" id="2_hgyfl"]
+[ext_resource type="FontFile" uid="uid://c3ggsycm3sove" path="res://LilitaOne-Regular.ttf" id="2_hgyfl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k68pu"]
-size = Vector2(74, 66)
-
-[sub_resource type="LabelSettings" id="LabelSettings_tqdpn"]
-font_size = 22
-font_color = Color(0, 0, 0, 1)
+size = Vector2(65, 65)
 
 [node name="Item" type="Area2D" unique_id=571960501]
 script = ExtResource("1_hgyfl")
-item_font = ExtResource("2_hgyfl")
 
 [node name="FlowerIcon" type="Sprite2D" parent="." unique_id=1087516760]
 
@@ -20,11 +15,16 @@ item_font = ExtResource("2_hgyfl")
 scale = Vector2(1.5, 1.5)
 shape = SubResource("RectangleShape2D_k68pu")
 
-[node name="Label" type="Label" parent="." unique_id=618346425]
+[node name="CollectLabel" type="Label" parent="." unique_id=618346425]
+visible = false
 offset_left = -56.0
-offset_top = -50.0
 offset_right = 56.0
 offset_bottom = 50.0
-label_settings = SubResource("LabelSettings_tqdpn")
+theme_override_colors/font_color = Color(0.82052165, 0.81135017, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_hgyfl")
+theme_override_font_sizes/font_size = 16
+text = "+10"
 horizontal_alignment = 1
 vertical_alignment = 1

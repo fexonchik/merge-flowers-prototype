@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://v1mmf4mtw3dj"]
+
+[ext_resource type="Script" uid="uid://onxkacuru8sv" path="res://Scene/QuestTracker.gd" id="1_57fum"]
+[ext_resource type="Texture2D" uid="uid://ci1rfvgsof70s" path="res://Textures/QuestGameBG.png" id="2_p30qw"]
+[ext_resource type="FontFile" uid="uid://dc1uyqkwuun41" path="res://LilitaOne-Russian.ttf" id="3_nh6sp"]
+
+[node name="QuestTracker" type="Panel" unique_id=132169106]
+self_modulate = Color(0, 0, 0, 0)
+anchors_preset = -1
+offset_right = 256.0
+offset_bottom = 384.0
+script = ExtResource("1_57fum")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1114576304]
+layout_mode = 1
+anchors_preset = -1
+offset_right = 256.0
+offset_bottom = 384.0
+texture = ExtResource("2_p30qw")
+expand_mode = 1
+
+[node name="Icon" type="TextureRect" parent="." unique_id=1761931762]
+custom_minimum_size = Vector2(85, 85)
+layout_mode = 1
+anchors_preset = -1
+offset_left = 64.0
+offset_top = 112.0
+offset_right = 192.0
+offset_bottom = 232.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Title" type="Label" parent="." unique_id=195316302]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 40.0
+offset_top = 40.000004
+offset_right = 205.0
+offset_bottom = 70.0
+scale = Vector2(1.0666666, 1.0672835)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("3_nh6sp")
+theme_override_font_sizes/font_size = 26
+text = "задание"
+horizontal_alignment = 1
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ProgressLabel" type="Label" parent="." unique_id=904937910]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 88.0
+offset_top = 232.0
+offset_right = 170.5
+offset_bottom = 261.0
+scale = Vector2(1.0666666, 1.0672835)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("3_nh6sp")
+theme_override_font_sizes/font_size = 24
+text = "3 / 5"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="RewardLabel" type="Label" parent="." unique_id=151639731]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 80.0
+offset_top = 264.00003
+offset_right = 177.5
+offset_bottom = 301.47833
+scale = Vector2(1.0666666, 1.0672835)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("3_nh6sp")
+theme_override_font_sizes/font_size = 22
+text = "Награда:"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true

@@ -1,112 +1,136 @@
+# Item.gd
 extends Area2D
 
-@export var show_debug_label := false
-@export var item_font: Font
-
 var dragging := false
-
 var item_id := 1
 var item_name := ""
-
 var start_position := Vector2.ZERO
 var grid_position := Vector2i.ZERO
 
-const TARGET_SIZE := 70.0
-
 func _ready():
-	update_label()
+	input_pickable = true
+	# СБРОС МАСШТАБА: чтобы объект всегда был 1:1 при создании
+	scale = Vector2.ONE 
 
-func set_item_data(new_item_id: int, new_texture: Texture2D, new_name: String, custom_target_size: float = 0.0):
+func set_item_data(new_item_id: int, new_texture: Texture2D, new_name: String, target_size: float):
 	item_id = new_item_id
 	item_name = new_name
-	if new_texture == null: return
-
 	$FlowerIcon.texture = new_texture
 	
-	# Используем переданный размер или стандартный (если забыли передать)
-	var final_size = custom_target_size if custom_target_size > 0 else 100.0
-
+	# Масштабируем только иконку
 	var tex_size = new_texture.get_size()
-	var max_side = max(tex_size.x, tex_size.y)
-	var scale_factor = final_size / max_side
-	$FlowerIcon.scale = Vector2(scale_factor, scale_factor)
+	var s = target_size / max(tex_size.x, tex_size.y)
+	$FlowerIcon.scale = Vector2(s, s)
 	
-	update_label()
-	
-func update_home_position():
-	start_position = global_position
-
-# Позволяет менять текст таймера из Game.gd
-func set_timer_text(text: String):
-	if not has_node("Label"): return
-	var l = $Label
-	l.visible = text != ""
-	l.text = text
-	
-	if item_font:
-		l.add_theme_font_override("font", item_font)
-	
-	l.add_theme_font_size_override("font_size", 30)
-	l.add_theme_color_override("font_outline_color", Color.BLACK)
-	l.add_theme_constant_override("outline_size", 6)
-
-func set_grid_position(coord: Vector2i):
-	grid_position = coord
-	start_position = global_position
+	# ФИКС КОЛЛИЗИИ: Создаем НОВУЮ форму для каждого предмета, 
+	# чтобы они не влияли друг на друга
+	if has_node("CollisionShape2D"):
+		var new_shape = RectangleShape2D.new()
+		
+		if item_id >= 101:
+			new_shape.size = Vector2(120, 120) # Размер для генератора
+		else:
+			new_shape.size = Vector2(70, 70)   # Размер для предмета (оптимально для 95 ячейки)
+			
+		$CollisionShape2D.shape = new_shape
 
 func _process(_delta):
 	if dragging:
 		global_position = get_global_mouse_position()
 
-# Это срабатывает ТОЛЬКО при нажатии на предмет
 func _input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			# Начинаем тащить, только если это НЕ генератор
-			# Если генератор — просто помечаем нажатие, но не включаем dragging
+			# ЕСЛИ ЭТО МОНЕТКА (ID 50)
+			if item_id == 50:
+				collect_coin()
+				return # Выходим, чтобы не включать dragging
+
 			if item_id < 100:
 				dragging = true
 				z_index = 1000
 			
-			# Поглощаем событие, чтобы не кликать сквозь предметы
-			get_viewport().set_input_as_handled()
+			if item_id >= 101:
+				get_parent().use_generator(self)
 
-# А это ловит отпускание кнопки В ЛЮБОМ месте экрана (решает залипание)
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if not event.pressed:
-			if dragging:
-				# Если тащили — отпускаем
-				dragging = false
-				z_index = 100 + grid_position.x + grid_position.y
-				get_parent().item_released(self)
-			elif is_mouse_over():
-				# Если не тащили (например, это генератор), но отпустили над предметом
-				# Это считается за обычный клик
-				get_parent().item_released(self)
-
-# Вспомогательная функция, чтобы понять, что мышь над предметом
-func is_mouse_over() -> bool:
-	var shape = $CollisionShape2D # Убедись, что у тебя так называется узел коллизии
-	return get_rect_world().has_point(get_global_mouse_position())
-
-func get_rect_world() -> Rect2:
-	# Получаем размеры коллизии для проверки клика
-	var shape = $CollisionShape2D.shape
-	if shape is RectangleShape2D:
-		var size = shape.size * global_scale
-		return Rect2(global_position - size / 2, size)
-	return Rect2(global_position - Vector2(50,50), Vector2(100,100))
+		if not event.pressed and dragging:
+			dragging = false
+			z_index = 1
+			get_parent().item_released(self)
 
 func move_to(target_pos: Vector2):
 	var tween := create_tween()
-	tween.tween_property(self, "global_position", target_pos, 0.12)
+	tween.tween_property(self, "global_position", target_pos, 0.1)
 	start_position = target_pos
 
 func return_to_cell():
 	move_to(start_position)
 
-func update_label():
-	if has_node("Label"):
-		$Label.visible = show_debug_label
-		$Label.text = str(item_id)
+func update_home_position():
+	start_position = global_position
+
+func set_grid_position(coord: Vector2i):
+	grid_position = coord
+	start_position = global_position
+	
+func collect_coin():
+	# 1. Защита от двойного клика: выключаем коллизию
+	input_pickable = false 
+	
+	# 2. Добавляем деньги в Global
+	Global.coins += 10
+	Global.save_game()
+	
+	# Обновляем текст на карте (если мы там)
+	if get_parent().has_method("update_ui"):
+		get_parent().update_ui()
+
+	# 3. ВИЗУАЛ: Прячем саму иконку монетки сразу
+	$FlowerIcon.visible = false
+	
+	# 4. АНИМАЦИЯ ТЕКСТА
+	var label = $CollectLabel # Наш заранее созданный Label
+	label.text = "+10 $"
+	label.visible = true
+	label.modulate.a = 1.0 # Убеждаемся, что он не прозрачный
+	label.scale = Vector2(0.5, 0.5) # Начинаем с маленького размера
+	
+	var tw = create_tween()
+	tw.set_parallel(true) # Анимации будут идти одновременно
+	
+	# Взлет вверх на 100 пикселей
+	tw.tween_property(label, "position:y", label.position.y - 100, 1.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	
+	# Плавное исчезновение (прозрачность в 0)
+	tw.tween_property(label, "modulate:a", 0.0, 1.2)
+	
+	# Увеличение размера (эффект всплытия)
+	tw.tween_property(label, "scale", Vector2(1.5, 1.5), 0.4)
+	
+	# 5. УДАЛЕНИЕ: Когда анимация текста закончилась, удаляем весь Item
+	tw.chain().finished.connect(func():
+		# Сообщаем сетке, что клетка освободилась (если функция есть в Game.gd)
+		if get_parent().has_method("remove_item_from_grid"):
+			get_parent().remove_item_from_grid(grid_position)
+		queue_free()
+	)
+	
+func spawn_floating_text(txt: String, color: Color):
+	var label = Label.new()
+	label.text = txt
+	label.add_theme_color_override("font_color", color)
+	label.add_theme_font_size_override("font_size", 24)
+	label.z_index = 2000 
+	label.global_position = global_position + Vector2(-20, -40)
+	get_tree().current_scene.add_child(label)
+	
+	var tw = create_tween()
+	tw.set_parallel(true)
+	# Вот тут исправлено:
+	tw.tween_property(label, "position:y", label.position.y - 80, 0.8).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tw.tween_property(label, "scale", Vector2(1.5, 1.5), 0.4)
+	tw.tween_property(label, "modulate:a", 0.0, 0.8).set_delay(0.2)
+	
+	tw.chain().finished.connect(label.queue_free)

@@ -16,11 +16,12 @@
 [ext_resource type="Texture2D" uid="uid://qhdnjakgk7sf" path="res://Textures/9_cart.png" id="10_p323j"]
 [ext_resource type="Texture2D" uid="uid://bhtmcir86hyq" path="res://Textures/10_truck.png" id="11_hjrqo"]
 [ext_resource type="Texture2D" uid="uid://cu5vtht8e2xbo" path="res://Textures/gen_meadow.png" id="12_ghk2r"]
-[ext_resource type="Texture2D" uid="uid://bnusvqxaem7wt" path="res://Textures/icon_barn.png" id="12_kfjtm"]
 [ext_resource type="Texture2D" uid="uid://xlkqar0qs356" path="res://Textures/gen_pond.png" id="13_mw7jm"]
 [ext_resource type="Texture2D" uid="uid://tlu8ix4w7pc8" path="res://Textures/cell_bg.png" id="14_ilbig"]
-[ext_resource type="Texture2D" uid="uid://dbj7gw4ddi3li" path="res://Textures/helper.png" id="20_1e3q2"]
-[ext_resource type="Texture2D" uid="uid://bdvj6wjdirac4" path="res://Textures/pngwing.com.png" id="20_3jynh"]
+[ext_resource type="Texture2D" uid="uid://dlv7ilxaubsrr" path="res://Textures/cell_block.png" id="16_3jynh"]
+[ext_resource type="PackedScene" uid="uid://v1mmf4mtw3dj" path="res://Scene/QuestTracker.tscn" id="19_hqtje"]
+[ext_resource type="Texture2D" uid="uid://dl7ccn6aeo4a7" path="res://Textures/BarnIcon.png" id="21_3jynh"]
+[ext_resource type="Texture2D" uid="uid://gfp41yl0cdmj" path="res://Textures/BackButton.png" id="21_hqtje"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6nqpc"]
 texture = ExtResource("8_2j816")
@@ -40,7 +41,7 @@ corner_radius_top_right = 25
 corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
 
-[node name="Game" type="Node2D" unique_id=1886787022 node_paths=PackedStringArray("tutorial_layer", "tutorial_label", "tutorial_arrow", "tutorial_character", "point_generator", "point_barn", "point_seeds")]
+[node name="Game" type="Node2D" unique_id=1886787022 node_paths=PackedStringArray("tutorial_layer", "tutorial_label", "bobby_character", "point_generator", "point_seeds")]
 script = ExtResource("1_wbfu4")
 texture_1_seed = ExtResource("2_bxrg2")
 texture_2_sprout_thin = ExtResource("3_ilbig")
@@ -52,18 +53,15 @@ texture_7_rose = ExtResource("8_0mc8i")
 texture_8_bush = ExtResource("9_hbowo")
 texture_9_cart = ExtResource("10_p323j")
 texture_10_truck = ExtResource("11_hjrqo")
-texture_barn = ExtResource("12_kfjtm")
 texture_gen_meadow = ExtResource("12_ghk2r")
 texture_gen_pond = ExtResource("13_mw7jm")
 empty_cell_texture = ExtResource("14_ilbig")
+locked_cell_texture = ExtResource("16_3jynh")
 item_scene = ExtResource("2_xkndl")
-main_font = ExtResource("7_tujvx")
 tutorial_layer = NodePath("TutorialLayer")
 tutorial_label = NodePath("TutorialLayer/DialogueBox/TutorialLabel")
-tutorial_arrow = NodePath("TutorialLayer/TutorialArrow")
-tutorial_character = NodePath("TutorialLayer/TutorialCharacter")
+bobby_character = NodePath("TutorialLayer/TutorialCharacter")
 point_generator = NodePath("PointGenerator")
-point_barn = NodePath("PointBarn")
 point_seeds = NodePath("PointSeeds")
 
 [node name="Background" type="Node2D" parent="." unique_id=1917897771]
@@ -147,6 +145,12 @@ offset_bottom = 341.3034
 scale = Vector2(1.0400097, 1.2592425)
 text = "Закрыть"
 
+[node name="QuestTracker" parent="CanvasLayer" unique_id=1396985077 instance=ExtResource("19_hqtje")]
+offset_left = 1080.0
+offset_top = 240.0
+offset_right = 1256.0
+offset_bottom = 480.0
+
 [node name="TextureRect" type="TextureRect" parent="." unique_id=138956442]
 z_index = -10
 offset_left = -6.0
@@ -158,24 +162,23 @@ expand_mode = 1
 
 [node name="TutorialLayer" type="CanvasLayer" parent="." unique_id=820807342]
 
-[node name="TutorialArrow" type="Sprite2D" parent="TutorialLayer" unique_id=1911492185]
-position = Vector2(57.500023, 39.937492)
-scale = Vector2(0.20833324, 0.21195655)
-texture = ExtResource("20_3jynh")
-
 [node name="TutorialCharacter" type="TextureRect" parent="TutorialLayer" unique_id=753532685]
-offset_left = 368.0
-offset_top = 336.0
-offset_right = 1567.9999
-offset_bottom = 2414.0
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("20_1e3q2")
+anchors_preset = -1
+offset_left = 192.0
+offset_top = 216.0
+offset_right = 1552.0
+offset_bottom = 2496.0
+scale = Vector2(0.3, 0.3)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true
 
 [node name="DialogueBox" type="Panel" parent="TutorialLayer" unique_id=1398996384]
-offset_left = 608.0
-offset_top = 440.0
-offset_right = 1048.0
-offset_bottom = 616.0
+offset_left = 576.0
+offset_top = 488.0
+offset_right = 1016.0
+offset_bottom = 664.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_3jynh")
 
 [node name="TutorialLabel" type="Label" parent="TutorialLayer/DialogueBox" unique_id=2123282747]
@@ -190,15 +193,44 @@ autowrap_mode = 2
 
 [node name="PointGenerator" type="Marker2D" parent="." unique_id=866198599]
 modulate = Color(0, 0, 0, 1)
-position = Vector2(120, 120)
+position = Vector2(48, 176)
 gizmo_extents = 15.0
 
 [node name="PointBarn" type="Marker2D" parent="." unique_id=1073476873]
-position = Vector2(112, 552)
+position = Vector2(80, 552)
 
 [node name="PointSeeds" type="Marker2D" parent="." unique_id=755419499]
 position = Vector2(520, 312)
 
+[node name="GeneratorPos2" type="Marker2D" parent="." unique_id=571099869]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(152, 340)
+gizmo_extents = 15.0
+
+[node name="GeneratorPos" type="Marker2D" parent="." unique_id=1891091631]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(152, 160)
+gizmo_extents = 15.0
+
+[node name="BarnIcon" type="Sprite2D" parent="." unique_id=1650913309]
+position = Vector2(152, 540)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("21_3jynh")
+
+[node name="BackButton" type="TextureButton" parent="." unique_id=1577622929]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("21_hqtje")
+
+[node name="QuestTracker" parent="." unique_id=132169106 instance=ExtResource("19_hqtje")]
+offset_left = 952.0
+offset_top = 144.0
+offset_right = 1216.0
+offset_bottom = 536.0
+scale = Vector2(1.2, 1.2)
+
 [connection signal="pressed" from="CanvasLayer/MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/ReadmeButton" to="." method="_on_readme_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/ReadmePanel/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

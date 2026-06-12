@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jxbyljwp26bj"
-path="res://.godot/imported/MenuBG.jpg-e90558edbb91eeb485698d0a2dce6ad9.ctex"
+uid="uid://nmqdtsv8yix3"
+path="res://.godot/imported/coin_item.png-4cb796ec2ce5ed6fecd44aee052c9328.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/MenuBG.jpg"
-dest_files=["res://.godot/imported/MenuBG.jpg-e90558edbb91eeb485698d0a2dce6ad9.ctex"]
+source_file="res://Textures/coin_item.png"
+dest_files=["res://.godot/imported/coin_item.png-4cb796ec2ce5ed6fecd44aee052c9328.ctex"]
 
 [params]
 

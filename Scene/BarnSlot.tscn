@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://dn70d0jpbqc4p"]
+
+[ext_resource type="FontFile" uid="uid://c3ggsycm3sove" path="res://LilitaOne-Regular.ttf" id="1_2h5ue"]
+[ext_resource type="Texture2D" uid="uid://hoabtvfoh7aq" path="res://Textures/slot_bg.png" id="1_k25qf"]
+
+[node name="BarnSlot" type="TextureRect" unique_id=1234575921]
+custom_minimum_size = Vector2(125, 125)
+offset_left = -1.5258789e-05
+offset_right = 124.999985
+offset_bottom = 125.0
+scale = Vector2(1.2, 1.189)
+size_flags_horizontal = 4
+texture = ExtResource("1_k25qf")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Icon" type="TextureRect" parent="." unique_id=1874782393]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 20.000011
+offset_top = 20.18503
+offset_right = 120.3103
+offset_bottom = 118.15646
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.89865917, 0.8823739)
+expand_mode = 1
+stretch_mode = 4
+
+[node name="SellButton" type="Button" parent="." unique_id=148295059]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 26.66668
+offset_top = 74.01178
+offset_right = 106.66668
+offset_bottom = 117.01178
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0.33521685, 0.10223862, 0.30567282, 1)
+theme_override_colors/font_hover_color = Color(0.43148166, 0.14781612, 0.2836225, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("1_2h5ue")
+theme_override_font_sizes/font_size = 30
+flat = true
