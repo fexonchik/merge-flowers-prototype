@@ -7,31 +7,27 @@ func _ready():
 	check_tutorial()
 
 func check_tutorial():
-	if has_node("TutorialLayer"):
-		# Если туториал УЖЕ пройден — скрываем Боби навсегда
-		if Global.is_tutorial_done or int(Global.tutorial_step) > 1:
-			$TutorialLayer.visible = false
-			return
+	if not has_node("TutorialLayer"): return
+	
+	# Если всё пройдено - прячем
+	if Global.is_tutorial_done:
+		$TutorialLayer.visible = false
+		return
 		
-		# Если это самое начало (шаг 0 или 1)
-		var layer = $TutorialLayer
-		layer.visible = true
-		
+	var text = Global.get_bobby_text("MainMenu")
+	
+	if text != "" and text != "...":
+		$TutorialLayer.visible = true
+		$TutorialLayer/TutorialCharacter.texture = Global.bobby_texture
 		var label = $TutorialLayer/DialogueBox/TutorialLabel
-		var bobby = $TutorialLayer/TutorialCharacter
 		
-		if bobby: bobby.texture = Global.bobby_texture
-		
-		if label:
-			label.text = "Привет! Я Боби. Давай построим лучшую ферму! Нажимай ИГРАТЬ."
-			label.visible_ratio = 0
-			var tw = create_tween()
-			tw.tween_property(label, "visible_ratio", 1.5, 1.5)
-		else:
-			layer.visible = false
+		# Плавное появление
+		label.text = text
+		label.visible_ratio = 0
+		var tw = create_tween()
+		tw.tween_property(label, "visible_ratio", 1.0, 0.5)
 	else:
-		# Если ты забыл добавить TutorialLayer, игра просто напишет в консоль, но НЕ ВЫЛЕТИТ
-		print("Предупреждение: TutorialLayer не найден на сцене MainMenu. Проверь дерево узлов!")
+		$TutorialLayer.visible = false
 
 func _on_readme_button_pressed():
 	$ReadmePanel.visible = true

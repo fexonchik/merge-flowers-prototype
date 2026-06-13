@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" uid="uid://onxkacuru8sv" path="res://Scene/QuestTracker.gd" id="1_57fum"]
 [ext_resource type="Texture2D" uid="uid://ci1rfvgsof70s" path="res://Textures/QuestGameBG.png" id="2_p30qw"]
+[ext_resource type="Texture2D" uid="uid://6kcfmbl1blai" path="res://Textures/BobbySmall.png" id="3_m802s"]
 [ext_resource type="FontFile" uid="uid://dc1uyqkwuun41" path="res://LilitaOne-Russian.ttf" id="3_nh6sp"]
+[ext_resource type="Texture2D" uid="uid://8ebcoa3j1xl8" path="res://Textures/BlockDialog.png" id="4_6sa8a"]
 
 [node name="QuestTracker" type="Panel" unique_id=132169106]
 self_modulate = Color(0, 0, 0, 0)
@@ -34,9 +36,9 @@ stretch_mode = 5
 layout_mode = 1
 anchors_preset = -1
 offset_left = 40.0
-offset_top = 40.000004
+offset_top = 48.0
 offset_right = 205.0
-offset_bottom = 70.0
+offset_bottom = 78.0
 scale = Vector2(1.0666666, 1.0672835)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 5
@@ -82,3 +84,75 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="NoQuestsLabel" type="Label" parent="." unique_id=840097949]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+offset_left = 40.0
+offset_top = 128.00002
+offset_right = 205.0
+offset_bottom = 240.43497
+scale = Vector2(1.0666666, 1.0672835)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("3_nh6sp")
+theme_override_font_sizes/font_size = 29
+text = "Активных заданий пока нет"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="BobbyWrapper" type="Control" parent="." unique_id=1092187644]
+anchors_preset = 0
+offset_left = 32.0
+offset_top = 392.0
+offset_right = 72.0
+offset_bottom = 432.0
+
+[node name="BobbyBubble" type="TextureRect" parent="BobbyWrapper" unique_id=787800300]
+layout_mode = 0
+offset_left = -304.0
+offset_top = -216.0
+offset_right = 80.0
+offset_bottom = 32.0
+texture = ExtResource("4_6sa8a")
+expand_mode = 1
+
+[node name="BobbyLabel" type="Label" parent="BobbyWrapper/BobbyBubble" unique_id=506389086]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 80.0
+offset_right = 344.0
+offset_bottom = 176.0
+theme_override_colors/font_color = Color(0.95686275, 0.5568628, 0.654902, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("3_nh6sp")
+theme_override_font_sizes/font_size = 20
+text = "привет"
+autowrap_mode = 2
+
+[node name="BobbySmall" type="TextureRect" parent="BobbyWrapper" unique_id=1021574125]
+layout_mode = 0
+offset_left = 64.0
+offset_top = -240.00002
+offset_right = 315.42856
+offset_bottom = 284.4286
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("3_m802s")
+
+[node name="HideButton" type="Button" parent="BobbyWrapper" unique_id=732581433]
+layout_mode = 0
+offset_left = -280.0
+offset_top = -160.0
+offset_right = 120.0
+offset_bottom = 80.0
+theme_override_colors/font_color = Color(0.95686275, 0.5568628, 0.654902, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("3_nh6sp")
+theme_override_font_sizes/font_size = 18
+text = "(нажмите что-бы скрыть)"
+flat = true

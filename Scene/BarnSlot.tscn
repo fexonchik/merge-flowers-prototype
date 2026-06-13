@@ -30,10 +30,10 @@ stretch_mode = 4
 [node name="SellButton" type="Button" parent="." unique_id=148295059]
 layout_mode = 1
 anchors_preset = -1
-offset_left = 26.66668
-offset_top = 74.01178
-offset_right = 106.66668
-offset_bottom = 117.01178
+offset_left = -6.666654
+offset_top = 53.826744
+offset_right = 140.00002
+offset_bottom = 127.83853
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(0.33521685, 0.10223862, 0.30567282, 1)
 theme_override_colors/font_hover_color = Color(0.43148166, 0.14781612, 0.2836225, 1)

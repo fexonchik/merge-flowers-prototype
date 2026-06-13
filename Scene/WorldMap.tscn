@@ -15,23 +15,16 @@
 [ext_resource type="PackedScene" uid="uid://bic52xb1jjpc4" path="res://Scene/ShopUI.tscn" id="13_5837l"]
 [ext_resource type="PackedScene" uid="uid://pkrhlqd70j4c" path="res://Scene/ShopSlot.tscn" id="14_7cdxa"]
 [ext_resource type="PackedScene" uid="uid://b0bqis1wxe1q2" path="res://Scene/QuestUI.tscn" id="15_f557b"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f557b"]
-bg_color = Color(0.12591085, 0.12591085, 0.12591082, 0.8666667)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
+[ext_resource type="Texture2D" uid="uid://irv2emwfp6fn" path="res://Textures/ReverseBlockDialog.png" id="16_qv061"]
 
 [node name="Control" type="Control" unique_id=433955801]
 layout_mode = 3
-anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.994
+offset_bottom = 4.3200073
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_psonl")
-metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1368767639]
 layout_mode = 0
@@ -163,7 +156,7 @@ slot_scene = ExtResource("10_ymd8v")
 
 [node name="TextureRect2" type="TextureRect" parent="." unique_id=24510249]
 layout_mode = 0
-offset_right = 576.0
+offset_right = 608.0
 offset_bottom = 208.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("11_bkfj6")
@@ -201,10 +194,10 @@ visible = false
 
 [node name="TutorialCharacter" type="TextureRect" parent="TutorialLayer" unique_id=337616086]
 anchors_preset = -1
-offset_left = 168.0
-offset_top = 216.0
-offset_right = 1528.0
-offset_bottom = 2496.0
+offset_left = 200.0
+offset_top = 224.00003
+offset_right = 1373.3333
+offset_bottom = 2344.0
 scale = Vector2(0.3, 0.3)
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -212,24 +205,27 @@ mouse_filter = 2
 stretch_mode = 5
 metadata/_edit_use_anchors_ = true
 
-[node name="DialogueBox" type="Panel" parent="TutorialLayer" unique_id=350379645]
-offset_left = 552.0
-offset_top = 488.0
-offset_right = 992.0
-offset_bottom = 664.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_f557b")
-metadata/_edit_use_anchors_ = true
+[node name="DialogueBox" type="TextureRect" parent="TutorialLayer" unique_id=556981204]
+offset_left = 536.0
+offset_top = 264.0
+offset_right = 1016.0
+offset_bottom = 624.0
+texture = ExtResource("16_qv061")
+expand_mode = 1
 
-[node name="TutorialLabel" type="Label" parent="TutorialLayer/DialogueBox" unique_id=1020539357]
+[node name="TutorialLabel" type="Label" parent="TutorialLayer/DialogueBox" unique_id=51685216]
 layout_mode = 0
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 424.0
-offset_bottom = 160.0
+offset_left = 64.0
+offset_top = 104.0
+offset_right = 416.0
+offset_bottom = 264.0
+theme_override_colors/font_color = Color(0.95845705, 0.5564531, 0.65444404, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("7_n2bu3")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 31
+text = "ff"
 autowrap_mode = 2
-metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="TextureRect/TextureButton" to="." method="_on_texture_button_4_pressed"]
 [connection signal="pressed" from="TextureRect/TextureButton2" to="." method="_on_texture_button_2_pressed"]

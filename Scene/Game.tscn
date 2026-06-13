@@ -15,11 +15,10 @@
 [ext_resource type="Texture2D" uid="uid://cibo5myucdtpi" path="res://Textures/8_bush.png" id="9_hbowo"]
 [ext_resource type="Texture2D" uid="uid://qhdnjakgk7sf" path="res://Textures/9_cart.png" id="10_p323j"]
 [ext_resource type="Texture2D" uid="uid://bhtmcir86hyq" path="res://Textures/10_truck.png" id="11_hjrqo"]
-[ext_resource type="Texture2D" uid="uid://cu5vtht8e2xbo" path="res://Textures/gen_meadow.png" id="12_ghk2r"]
-[ext_resource type="Texture2D" uid="uid://xlkqar0qs356" path="res://Textures/gen_pond.png" id="13_mw7jm"]
 [ext_resource type="Texture2D" uid="uid://tlu8ix4w7pc8" path="res://Textures/cell_bg.png" id="14_ilbig"]
 [ext_resource type="Texture2D" uid="uid://dlv7ilxaubsrr" path="res://Textures/cell_block.png" id="16_3jynh"]
 [ext_resource type="PackedScene" uid="uid://v1mmf4mtw3dj" path="res://Scene/QuestTracker.tscn" id="19_hqtje"]
+[ext_resource type="Texture2D" uid="uid://irv2emwfp6fn" path="res://Textures/ReverseBlockDialog.png" id="21_0mc8i"]
 [ext_resource type="Texture2D" uid="uid://dl7ccn6aeo4a7" path="res://Textures/BarnIcon.png" id="21_3jynh"]
 [ext_resource type="Texture2D" uid="uid://gfp41yl0cdmj" path="res://Textures/BackButton.png" id="21_hqtje"]
 
@@ -34,14 +33,7 @@ expand_margin_top = 30.0
 expand_margin_right = 30.0
 expand_margin_bottom = 30.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3jynh"]
-bg_color = Color(0.12591085, 0.12591085, 0.12591082, 0.8666667)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-
-[node name="Game" type="Node2D" unique_id=1886787022 node_paths=PackedStringArray("tutorial_layer", "tutorial_label", "bobby_character", "point_generator", "point_seeds")]
+[node name="Game" type="Node2D" unique_id=1886787022 node_paths=PackedStringArray("tutorial_layer", "tutorial_label", "bobby_character")]
 script = ExtResource("1_wbfu4")
 texture_1_seed = ExtResource("2_bxrg2")
 texture_2_sprout_thin = ExtResource("3_ilbig")
@@ -53,16 +45,12 @@ texture_7_rose = ExtResource("8_0mc8i")
 texture_8_bush = ExtResource("9_hbowo")
 texture_9_cart = ExtResource("10_p323j")
 texture_10_truck = ExtResource("11_hjrqo")
-texture_gen_meadow = ExtResource("12_ghk2r")
-texture_gen_pond = ExtResource("13_mw7jm")
 empty_cell_texture = ExtResource("14_ilbig")
 locked_cell_texture = ExtResource("16_3jynh")
 item_scene = ExtResource("2_xkndl")
 tutorial_layer = NodePath("TutorialLayer")
 tutorial_label = NodePath("TutorialLayer/DialogueBox/TutorialLabel")
 bobby_character = NodePath("TutorialLayer/TutorialCharacter")
-point_generator = NodePath("PointGenerator")
-point_seeds = NodePath("PointSeeds")
 
 [node name="Background" type="Node2D" parent="." unique_id=1917897771]
 
@@ -161,34 +149,40 @@ texture = ExtResource("6_3xgnh")
 expand_mode = 1
 
 [node name="TutorialLayer" type="CanvasLayer" parent="." unique_id=820807342]
+visible = false
 
 [node name="TutorialCharacter" type="TextureRect" parent="TutorialLayer" unique_id=753532685]
 anchors_preset = -1
-offset_left = 192.0
-offset_top = 216.0
-offset_right = 1552.0
-offset_bottom = 2496.0
+offset_left = 112.0
+offset_top = 200.0
+offset_right = 1472.0
+offset_bottom = 2480.0
 scale = Vector2(0.3, 0.3)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 stretch_mode = 5
 metadata/_edit_use_anchors_ = true
 
-[node name="DialogueBox" type="Panel" parent="TutorialLayer" unique_id=1398996384]
-offset_left = 576.0
-offset_top = 488.0
-offset_right = 1016.0
-offset_bottom = 664.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_3jynh")
+[node name="DialogueBox" type="TextureRect" parent="TutorialLayer" unique_id=478882932]
+offset_left = 496.0
+offset_top = 320.0
+offset_right = 976.0
+offset_bottom = 624.0
+texture = ExtResource("21_0mc8i")
+expand_mode = 1
 
 [node name="TutorialLabel" type="Label" parent="TutorialLayer/DialogueBox" unique_id=2123282747]
 layout_mode = 0
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 424.0
-offset_bottom = 160.0
+offset_left = 56.0
+offset_top = 96.0
+offset_right = 432.0
+offset_bottom = 224.0
+theme_override_colors/font_color = Color(0.95686275, 0.5568628, 0.654902, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("7_tujvx")
 theme_override_font_sizes/font_size = 30
+text = "ff"
 autowrap_mode = 2
 
 [node name="PointGenerator" type="Marker2D" parent="." unique_id=866198599]
@@ -204,7 +198,7 @@ position = Vector2(520, 312)
 
 [node name="GeneratorPos2" type="Marker2D" parent="." unique_id=571099869]
 modulate = Color(0, 0, 0, 1)
-position = Vector2(152, 340)
+position = Vector2(152, 354.43)
 gizmo_extents = 15.0
 
 [node name="GeneratorPos" type="Marker2D" parent="." unique_id=1891091631]
@@ -214,16 +208,17 @@ gizmo_extents = 15.0
 
 [node name="BarnIcon" type="Sprite2D" parent="." unique_id=1650913309]
 position = Vector2(152, 540)
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.55, 0.55)
 texture = ExtResource("21_3jynh")
 
 [node name="BackButton" type="TextureButton" parent="." unique_id=1577622929]
 offset_right = 40.0
 offset_bottom = 40.0
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.7, 0.7)
 texture_normal = ExtResource("21_hqtje")
 
 [node name="QuestTracker" parent="." unique_id=132169106 instance=ExtResource("19_hqtje")]
+visible = false
 offset_left = 952.0
 offset_top = 144.0
 offset_right = 1216.0

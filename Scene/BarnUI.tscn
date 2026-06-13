@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bo8amw8od4mag" path="res://Scene/BarnUI.gd" id="1_bcmn4"]
 [ext_resource type="Texture2D" uid="uid://cre16qui1mewv" path="res://Textures/BarnMenu.png" id="2_oahbx"]
 [ext_resource type="Texture2D" uid="uid://dver4qvnb2y08" path="res://Textures/CloseButton.png" id="3_neeth"]
+[ext_resource type="FontFile" uid="uid://dc1uyqkwuun41" path="res://LilitaOne-Russian.ttf" id="4_8hbod"]
 
 [node name="BarnUI" type="CanvasLayer" unique_id=1795725289]
 script = ExtResource("1_bcmn4")
@@ -43,5 +44,25 @@ offset_right = 1106.0
 offset_bottom = 208.0
 scale = Vector2(0.5, 0.52)
 texture_normal = ExtResource("3_neeth")
+
+[node name="Label" type="Label" parent="." unique_id=995866112]
+anchors_preset = -1
+anchor_top = 0.011111027
+anchor_right = 0.03515625
+anchor_bottom = 0.0007004632
+offset_left = 344.0
+offset_top = 160.00008
+offset_right = 891.5
+offset_bottom = 239.00008
+scale = Vector2(1.0666666, 1.0672835)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("4_8hbod")
+theme_override_font_sizes/font_size = 31
+text = "Нажмите на цену цветка для продажи"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

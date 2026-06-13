@@ -80,7 +80,7 @@ func collect_coin():
 	input_pickable = false 
 	
 	# 2. Добавляем деньги в Global
-	Global.coins += 10
+	Global.coins += 200
 	Global.save_game()
 	
 	# Обновляем текст на карте (если мы там)
@@ -92,7 +92,7 @@ func collect_coin():
 	
 	# 4. АНИМАЦИЯ ТЕКСТА
 	var label = $CollectLabel # Наш заранее созданный Label
-	label.text = "+10 $"
+	label.text = "+200 $"
 	label.visible = true
 	label.modulate.a = 1.0 # Убеждаемся, что он не прозрачный
 	label.scale = Vector2(0.5, 0.5) # Начинаем с маленького размера

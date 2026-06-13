@@ -1,0 +1,40 @@
+{
+  "refresh_settings": {
+    "auto_refresh_hours": 3,
+    "manual_refresh_coins_base": 100,
+    "manual_refresh_coins_step": 50
+  },
+  "slots": [
+    {
+      "slot_number": 1,
+      "description": "Рандомный цветок (ур. 1-3) за монеты",
+      "type": "random_flower",
+      "range": [1, 3],
+      "currency": "coins"
+    },
+    {
+      "slot_number": 2,
+      "description": "Рандомный цветок (ур. 4-6) за монеты",
+      "type": "random_flower",
+      "range": [4, 6],
+      "currency": "coins"
+    },
+    {
+      "slot_number": 3,
+      "description": "Редкий товар за золото (ур. 7 или гемы)",
+      "type": "rare_selection",
+      "options": [
+        { "item_id": 7, "weight": 50, "price": 5000 },
+        { "item_id": 60, "amount": 3, "weight": 50, "price": 3000 }
+      ],
+      "currency": "coins"
+    },
+    {
+      "slot_number": 4,
+      "description": "VIP: Рандомный предмет (ур. 3-5) за рекламу",
+      "type": "ads_reward",
+      "range": [3, 5],
+      "currency": "ads"
+    }
+  ]
+}

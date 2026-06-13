@@ -46,21 +46,20 @@ theme_override_fonts/font = ExtResource("2_28rtf")
 theme_override_font_sizes/font_size = 26
 text = "задание"
 horizontal_alignment = 1
-metadata/_edit_use_anchors_ = true
 
 [node name="ClaimButton" type="Button" parent="." unique_id=1836079388]
 layout_mode = 1
 anchors_preset = -1
-offset_left = 224.0
-offset_top = 192.0
-offset_right = 400.0
-offset_bottom = 233.0
+offset_left = 48.0
+offset_top = 128.0
+offset_right = 376.0
+offset_bottom = 288.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("2_28rtf")
 theme_override_font_sizes/font_size = 20
-text = "Сдать"
+text = "сдать"
 icon = ExtResource("3_x1jv0")
 flat = true
 alignment = 2
@@ -82,7 +81,6 @@ theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("2_28rtf")
 theme_override_font_sizes/font_size = 24
 text = "3 / 5"
-metadata/_edit_use_anchors_ = true
 
 [node name="RewardLabel" type="Label" parent="." unique_id=151639731]
 layout_mode = 1
@@ -99,6 +97,5 @@ theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("2_28rtf")
 theme_override_font_sizes/font_size = 22
 text = "Награда:"
-metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="ClaimButton" to="." method="_on_claim_button_pressed"]
