@@ -15,6 +15,10 @@ func _ready():
 func update_ui():
 	if coin_label:
 		coin_label.text = "МОНЕТЫ: " + str(Global.coins)
+	var daily_button = get_node_or_null("DailyAdButton")
+	if daily_button:
+		daily_button.disabled = not Global.can_claim_daily_ad_bonus()
+		daily_button.text = "Ежедневный бонус" if Global.can_claim_daily_ad_bonus() else "Сегодня уже получено"
 
 # --- УПРАВЛЕНИЕ БОББИ (ЧЕРЕЗ JSON) ---
 
@@ -55,16 +59,53 @@ func check_tutorial_step():
 			)
 
 func _on_texture_button_pressed(): # Кнопка ФЕРМА
+	Global.play_sound("click")
 	get_tree().change_scene_to_file("res://Scene/Game.tscn")
 
 func _on_texture_button_2_pressed(): # Кнопка ЛАВКА
 	hide_tutorial()
+	Global.play_sound("click")
 	if has_node("ShopUI"): $ShopUI.open_shop()
 
 func _on_texture_button_3_pressed(): # Кнопка АМБАР
 	hide_tutorial()
+	Global.play_sound("click")
 	if has_node("BarnUI"): $BarnUI.open_barn()
 
 func _on_texture_button_4_pressed(): # Кнопка ВОРОТА
 	hide_tutorial()
+	Global.play_sound("click")
 	if has_node("QuestUI"): $QuestUI.open_quests()
+
+
+func _on_info_button_pressed():
+	hide_tutorial()
+	Global.play_sound("click")
+	if has_node("InfoUI"):
+		$InfoUI.open_info()
+
+func _on_daily_ad_button_pressed():
+	if not Global.can_claim_daily_ad_bonus():
+		return
+	Ads.show_rewarded_ad("daily_bonus")
+	grant_daily_ad_bonus()
+
+func grant_daily_ad_bonus():
+	var roll = randi() % 100
+	if roll < 60:
+		Global.coins += 300
+	elif roll < 90:
+		Global.add_to_inventory(60)
+	else:
+		if Global.generator_states.has(101):
+			Global.generator_states[101]["charges"] = min(int(Global.generator_states[101].get("max_charges", 30)), int(Global.generator_states[101].get("charges", 0)) + 5)
+	Global.mark_daily_ad_claimed()
+	Global.save_game()
+	update_ui()
+
+func _on_settings_button_pressed():
+	# Если в сцене Game есть туториал, прячем его
+	hide_tutorial() 
+	Global.play_sound("click")
+	# Вызываем окно настроек
+	$SettingsUI.open_settings()

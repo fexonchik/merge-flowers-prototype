@@ -10,6 +10,11 @@
 script = ExtResource("1_3qldc")
 slot_scene = ExtResource("2_bt2wr")
 
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1397033321]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 0.5882353)
+
 [node name="Background" type="TextureRect" parent="." unique_id=335348426]
 offset_right = 40.0
 offset_bottom = 40.0
@@ -25,7 +30,7 @@ texture = ExtResource("2_j3t01")
 [node name="Label" type="Label" parent="Window" unique_id=844734411]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = -0.2983334
+anchor_left = -0.29833344
 anchor_top = -0.17718886
 anchor_right = -0.29833344
 anchor_bottom = -0.16300334
@@ -46,14 +51,14 @@ metadata/_edit_use_anchors_ = true
 [node name="ScrollContainer" type="ScrollContainer" parent="Window" unique_id=293380219]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = -0.3
-anchor_top = -0.17500001
-anchor_right = -0.3
-anchor_bottom = -0.17500001
-offset_left = 433.33334
-offset_top = 246.60834
-offset_right = 846.6667
-offset_bottom = 486.60834
+anchor_left = -0.16700001
+anchor_top = -0.025
+anchor_right = -0.16700001
+anchor_bottom = -0.025
+offset_left = 326.93335
+offset_top = 166.65833
+offset_right = 740.2667
+offset_bottom = 406.65833
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Window/ScrollContainer" unique_id=597743834]
 layout_mode = 2
@@ -65,11 +70,33 @@ anchor_left = -0.3
 anchor_top = -0.17500001
 anchor_right = -0.3
 anchor_bottom = -0.17500001
-offset_left = 806.6667
-offset_top = 126.608345
-offset_right = 1016.6667
-offset_bottom = 254.60835
+offset_left = 820.00006
+offset_top = 179.94168
+offset_right = 1030.0001
+offset_bottom = 307.9417
 scale = Vector2(0.45, 0.45)
 texture_normal = ExtResource("4_udata")
+
+[node name="LabelSdat" type="Label" parent="Window" unique_id=1433548518]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.16700001
+anchor_top = -0.013
+anchor_right = -0.16700001
+anchor_bottom = -0.013
+offset_left = 393.60004
+offset_top = 420.26227
+offset_right = 674.85
+offset_bottom = 495.21893
+scale = Vector2(1.0666666, 1.0672835)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("3_wg0n8")
+theme_override_font_sizes/font_size = 21
+text = "(что-бы сдать квест нажмите на \"сдать\")"
+horizontal_alignment = 1
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="Window/CloseButton" to="." method="_on_close_button_pressed"]

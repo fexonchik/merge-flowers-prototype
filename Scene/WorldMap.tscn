@@ -16,6 +16,10 @@
 [ext_resource type="PackedScene" uid="uid://pkrhlqd70j4c" path="res://Scene/ShopSlot.tscn" id="14_7cdxa"]
 [ext_resource type="PackedScene" uid="uid://b0bqis1wxe1q2" path="res://Scene/QuestUI.tscn" id="15_f557b"]
 [ext_resource type="Texture2D" uid="uid://irv2emwfp6fn" path="res://Textures/ReverseBlockDialog.png" id="16_qv061"]
+[ext_resource type="PackedScene" uid="uid://capsskhia8fce" path="res://Scene/SettingsUI.tscn" id="17_yb6oh"]
+[ext_resource type="Texture2D" uid="uid://5oifgbceta3e" path="res://Textures/SettingsButton.png" id="18_n30kx"]
+[ext_resource type="Texture2D" uid="uid://dntmof1i72d70" path="res://Textures/SlotBG.png" id="19_txrjf"]
+[ext_resource type="PackedScene" uid="uid://bpbu3cweto6qv" path="res://Scene/InfoUI.tscn" id="20_6vg5b"]
 
 [node name="Control" type="Control" unique_id=433955801]
 layout_mode = 3
@@ -29,7 +33,7 @@ script = ExtResource("1_psonl")
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1368767639]
 layout_mode = 0
 offset_right = 1920.0
-offset_bottom = 1080.0
+offset_bottom = 1080.1401
 scale = Vector2(0.6682424, 0.66658014)
 texture = ExtResource("1_l8kh1")
 
@@ -86,6 +90,7 @@ offset_right = 296.0
 offset_bottom = 151.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("7_n2bu3")
 theme_override_font_sizes/font_size = 48
 text = "Ворота"
@@ -106,6 +111,7 @@ offset_top = 90.00001
 offset_right = 264.0
 offset_bottom = 151.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("7_n2bu3")
 theme_override_font_sizes/font_size = 48
 text = "Лавка"
@@ -126,6 +132,7 @@ offset_top = 90.00001
 offset_right = 296.0
 offset_bottom = 151.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("7_n2bu3")
 theme_override_font_sizes/font_size = 48
 text = "Амбар"
@@ -140,12 +147,18 @@ scale = Vector2(0.6, 0.6)
 texture = ExtResource("6_yrjga")
 
 [node name="Label" type="Label" parent="TextureRect5" unique_id=1524864656]
-layout_mode = 0
-offset_left = 119.99999
-offset_top = 90.00001
-offset_right = 296.0
-offset_bottom = 151.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -4.236
+anchor_top = -1.9790001
+anchor_right = -4.236
+anchor_bottom = -1.9790001
+offset_left = 1746.624
+offset_top = 596.624
+offset_right = 1922.624
+offset_bottom = 657.624
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("7_n2bu3")
 theme_override_font_sizes/font_size = 48
 text = "Ферма"
@@ -191,6 +204,7 @@ shop_slot_scene = ExtResource("14_7cdxa")
 visible = false
 
 [node name="TutorialLayer" type="CanvasLayer" parent="." unique_id=903348999]
+visible = false
 
 [node name="TutorialCharacter" type="TextureRect" parent="TutorialLayer" unique_id=337616086]
 anchors_preset = -1
@@ -227,7 +241,79 @@ theme_override_font_sizes/font_size = 31
 text = "ff"
 autowrap_mode = 2
 
+[node name="SettingsUI" parent="." unique_id=528602224 instance=ExtResource("17_yb6oh")]
+visible = false
+
+[node name="SettingsButton" type="TextureButton" parent="." unique_id=980883584]
+layout_mode = 0
+offset_left = 1184.0
+offset_top = 8.000002
+offset_right = 1312.0
+offset_bottom = 136.0
+scale = Vector2(0.7290129, 0.7400003)
+texture_normal = ExtResource("18_n30kx")
+
+[node name="InfoButton" type="TextureButton" parent="." unique_id=1878450007]
+layout_mode = 0
+offset_left = 408.0
+offset_top = -8.0
+offset_right = 908.0
+offset_bottom = 293.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("19_txrjf")
+
+[node name="Label" type="Label" parent="InfoButton" unique_id=442052294]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.0400001
+anchor_right = -1.0400001
+offset_left = 600.00006
+offset_top = 80.0
+offset_right = 936.00006
+offset_bottom = 195.0
+scale = Vector2(1.0279405, 1.0215683)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("7_n2bu3")
+theme_override_font_sizes/font_size = 48
+text = "Информация о предметах"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="TextureRect6" type="TextureRect" parent="." unique_id=129852101]
+layout_mode = 0
+offset_left = 616.0
+offset_top = -8.0
+offset_right = 1144.0
+offset_bottom = 296.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("19_txrjf")
+
+[node name="DailyAdButton" type="Button" parent="." unique_id=1187845001]
+layout_mode = 0
+offset_left = 656.0
+offset_top = 16.0
+offset_right = 1024.0
+offset_bottom = 192.0
+scale = Vector2(0.5152907, 0.5079735)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("7_n2bu3")
+theme_override_font_sizes/font_size = 43
+text = "Ежедневный бонус за рекламу"
+flat = true
+autowrap_mode = 2
+
+[node name="InfoUI" parent="." unique_id=1493142767 instance=ExtResource("20_6vg5b")]
+visible = false
+
 [connection signal="pressed" from="TextureRect/TextureButton" to="." method="_on_texture_button_4_pressed"]
 [connection signal="pressed" from="TextureRect/TextureButton2" to="." method="_on_texture_button_2_pressed"]
 [connection signal="pressed" from="TextureRect/TextureButton3" to="." method="_on_texture_button_pressed"]
 [connection signal="pressed" from="TextureRect/TextureButton4" to="." method="_on_texture_button_3_pressed"]
+[connection signal="pressed" from="SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="InfoButton" to="." method="_on_info_button_pressed"]
+[connection signal="pressed" from="DailyAdButton" to="." method="_on_daily_ad_button_pressed"]

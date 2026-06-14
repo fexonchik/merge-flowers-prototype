@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://dqrmica1f3fov"]
+
+[ext_resource type="Script" uid="uid://deqtoextgcjxs" path="res://Scene/InfoSlot.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://c8se0vyadfm7e" path="res://Textures/SlotBG2.png" id="1_vbrci"]
+[ext_resource type="FontFile" uid="uid://dc1uyqkwuun41" path="res://LilitaOne-Russian.ttf" id="3"]
+
+[node name="InfoSlot" type="TextureRect" unique_id=78589487]
+custom_minimum_size = Vector2(655, 245)
+anchors_preset = -1
+offset_right = 660.0
+offset_bottom = 288.0
+texture = ExtResource("1_vbrci")
+script = ExtResource("1")
+
+[node name="Icon" type="TextureRect" parent="." unique_id=1634136588]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 88.0
+offset_top = 32.0
+offset_right = 264.0
+offset_bottom = 200.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="NameLabel" type="Label" parent="." unique_id=2105530945]
+layout_mode = 0
+offset_left = 104.0
+offset_top = 112.0
+offset_right = 256.0
+offset_bottom = 160.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 25
+text = "Название"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="PriceLabel" type="Label" parent="." unique_id=680442413]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 16.0
+offset_right = 480.0
+offset_bottom = 56.0
+theme_override_colors/font_color = Color(1, 0.952941, 0.635294, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 28
+text = "Цена"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="InfoLabel" type="Label" parent="." unique_id=316083826]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 8.0
+offset_right = 584.0
+offset_bottom = 224.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 19
+text = "Инфо"
+vertical_alignment = 1
+autowrap_mode = 2

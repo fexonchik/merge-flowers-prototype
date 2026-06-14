@@ -8,6 +8,11 @@
 [node name="BarnUI" type="CanvasLayer" unique_id=1795725289]
 script = ExtResource("1_bcmn4")
 
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1782206062]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 0.5882353)
+
 [node name="TextureRect" type="TextureRect" parent="." unique_id=959648446]
 anchors_preset = 8
 anchor_left = 0.5
@@ -47,7 +52,7 @@ texture_normal = ExtResource("3_neeth")
 
 [node name="Label" type="Label" parent="." unique_id=995866112]
 anchors_preset = -1
-anchor_top = 0.011111027
+anchor_top = 0.0007004632
 anchor_right = 0.03515625
 anchor_bottom = 0.0007004632
 offset_left = 344.0

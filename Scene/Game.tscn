@@ -17,10 +17,12 @@
 [ext_resource type="Texture2D" uid="uid://bhtmcir86hyq" path="res://Textures/10_truck.png" id="11_hjrqo"]
 [ext_resource type="Texture2D" uid="uid://tlu8ix4w7pc8" path="res://Textures/cell_bg.png" id="14_ilbig"]
 [ext_resource type="Texture2D" uid="uid://dlv7ilxaubsrr" path="res://Textures/cell_block.png" id="16_3jynh"]
+[ext_resource type="Texture2D" uid="uid://5oifgbceta3e" path="res://Textures/SettingsButton.png" id="19_0mc8i"]
 [ext_resource type="PackedScene" uid="uid://v1mmf4mtw3dj" path="res://Scene/QuestTracker.tscn" id="19_hqtje"]
 [ext_resource type="Texture2D" uid="uid://irv2emwfp6fn" path="res://Textures/ReverseBlockDialog.png" id="21_0mc8i"]
 [ext_resource type="Texture2D" uid="uid://dl7ccn6aeo4a7" path="res://Textures/BarnIcon.png" id="21_3jynh"]
 [ext_resource type="Texture2D" uid="uid://gfp41yl0cdmj" path="res://Textures/BackButton.png" id="21_hqtje"]
+[ext_resource type="PackedScene" uid="uid://capsskhia8fce" path="res://Scene/SettingsUI.tscn" id="23_0mc8i"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6nqpc"]
 texture = ExtResource("8_2j816")
@@ -181,7 +183,7 @@ theme_override_colors/font_color = Color(0.95686275, 0.5568628, 0.654902, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("7_tujvx")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 27
 text = "ff"
 autowrap_mode = 2
 
@@ -225,7 +227,19 @@ offset_right = 1216.0
 offset_bottom = 536.0
 scale = Vector2(1.2, 1.2)
 
+[node name="SettingsButton" type="TextureButton" parent="." unique_id=533480068]
+offset_left = 1178.0
+offset_top = 1.0000019
+offset_right = 1306.0
+offset_bottom = 129.0
+scale = Vector2(0.74, 0.74000067)
+texture_normal = ExtResource("19_0mc8i")
+
+[node name="SettingsUI" parent="." unique_id=528602224 instance=ExtResource("23_0mc8i")]
+visible = false
+
 [connection signal="pressed" from="CanvasLayer/MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/ReadmeButton" to="." method="_on_readme_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/ReadmePanel/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="SettingsButton" to="." method="_on_settings_button_pressed"]

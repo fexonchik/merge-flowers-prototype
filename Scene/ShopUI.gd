@@ -11,6 +11,10 @@ func refresh_shop():
 	for child in grid.get_children():
 		child.queue_free()
 	
+	var secret_slot = shop_slot_scene.instantiate()
+	grid.add_child(secret_slot)
+	setup_secret_ad_slot(secret_slot)
+	
 	# 1. РЮКЗАК
 	var next_bp = Global.get_next_backpack_upgrade()
 	if next_bp:
@@ -76,6 +80,32 @@ func setup_upgrade_slot(slot, type, data):
 		buy_btn.pressed.connect(_on_upgrade_pressed.bind(type, data))
 
 # Настройка обычных предметов
+func format_seconds_to_mmss(seconds: float) -> String:
+	var total_seconds = int(ceil(seconds))
+	var minutes = total_seconds / 60
+	var secs = total_seconds % 60
+	return "%02d:%02d" % [minutes, secs]
+
+func setup_secret_ad_slot(slot):
+	var icon = slot.get_node("Icon")
+	var price_label = slot.get_node("PriceLabel")
+	var buy_btn = slot.get_node("BuyButton")
+	var name_label = slot.get_node_or_null("NameLabel")
+	icon.texture = preload("res://Textures/crystal_item.png")
+	if name_label:
+		name_label.text = "Секретный подарок"
+		buy_btn.text = ""
+	else:
+		buy_btn.text = "Секретный подарок"
+	price_label.text = "За рекламу"
+	buy_btn.disabled = not Global.can_claim_secret_gift()
+	if buy_btn.disabled:
+		price_label.text = "Повтор через " + format_seconds_to_mmss(Global.get_secret_gift_cooldown_left())
+	if not buy_btn.disabled:
+		if buy_btn.pressed.is_connected(claim_secret_ad_gift):
+			buy_btn.pressed.disconnect(claim_secret_ad_gift)
+		buy_btn.pressed.connect(claim_secret_ad_gift)
+
 func setup_standard_slot(slot, data):
 	var icon = slot.get_node("Icon")
 	var price_label = slot.get_node("PriceLabel")
@@ -111,6 +141,28 @@ func setup_standard_slot(slot, data):
 
 # ... функции покупки (оставляем как были) ...
 
+func claim_secret_ad_gift():
+	if not Global.can_claim_secret_gift():
+		refresh_shop()
+		return
+	Ads.show_rewarded_ad("secret_gift")
+	grant_secret_ad_gift()
+
+func grant_secret_ad_gift():
+	var roll = randi() % 100
+	if roll < 20:
+		Global.add_to_inventory(60)
+	elif roll < 60:
+		Global.coins += 250
+	else:
+		var item_id = randi_range(1, 4)
+		Global.add_to_inventory(item_id)
+	Global.mark_secret_gift_claimed()
+	Global.save_game()
+	refresh_shop()
+	if get_parent().has_method("update_ui"):
+		get_parent().update_ui()
+
 func _on_upgrade_pressed(type, data):
 	var coins_req = int(data["price_coins"])
 	var gems_req = int(data.get("price_gems", 0))
@@ -122,9 +174,11 @@ func _on_upgrade_pressed(type, data):
 				if idx != -1: Global.inventory.remove_at(idx)
 		if type == "upgrade_backpack":
 			Global.max_inventory_slots += 1
+			Global.increment_upgrade_ad_counter(type)
 			if int(Global.tutorial_step) == 10: Global.tutorial_step = 11
 		elif type == "upgrade_field":
 			Global.unlocked_cells += 1
+			Global.increment_upgrade_ad_counter(type)
 			if get_tree().current_scene.name == "Game": get_tree().reload_current_scene()
 		Global.save_game()
 		refresh_shop()

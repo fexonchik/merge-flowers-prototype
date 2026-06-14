@@ -7,6 +7,11 @@
 [node name="ShopUI" type="CanvasLayer" unique_id=910780407]
 script = ExtResource("1_l6a4d")
 
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2032738292]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 0.5882353)
+
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1928460817]
 anchors_preset = 8
 anchor_left = 0.5
@@ -39,10 +44,10 @@ layout_mode = 2
 theme_override_constants/v_separation = 7
 
 [node name="TextureButton" type="TextureButton" parent="." unique_id=1479670329]
-offset_left = 880.0
-offset_top = 64.0
-offset_right = 1090.0
-offset_bottom = 192.0
+offset_left = 887.99994
+offset_top = 72.0
+offset_right = 1098.0
+offset_bottom = 200.0
 scale = Vector2(0.60988355, 0.65)
 texture_normal = ExtResource("3_7otnx")
 

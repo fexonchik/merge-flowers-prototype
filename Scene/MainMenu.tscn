@@ -5,6 +5,8 @@
 [ext_resource type="FontFile" uid="uid://dc1uyqkwuun41" path="res://LilitaOne-Russian.ttf" id="3_o3nbu"]
 [ext_resource type="Texture2D" uid="uid://djvxce6ywngon" path="res://Textures/ButtonBG.png" id="4_v3p41"]
 [ext_resource type="Texture2D" uid="uid://irv2emwfp6fn" path="res://Textures/ReverseBlockDialog.png" id="5_o3nbu"]
+[ext_resource type="Texture2D" uid="uid://5oifgbceta3e" path="res://Textures/SettingsButton.png" id="6_6nqpc"]
+[ext_resource type="PackedScene" uid="uid://capsskhia8fce" path="res://Scene/SettingsUI.tscn" id="7_qf8tx"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6nqpc"]
 texture = ExtResource("4_v3p41")
@@ -166,8 +168,20 @@ theme_override_font_sizes/font_size = 35
 text = "ff"
 autowrap_mode = 2
 
+[node name="SettingsButton" type="TextureButton" parent="." unique_id=1668857992]
+layout_mode = 0
+offset_left = 1192.0
+offset_right = 1320.0
+offset_bottom = 128.0
+scale = Vector2(0.7, 0.7)
+texture_normal = ExtResource("6_6nqpc")
+
+[node name="SettingsUI" parent="." unique_id=528602224 instance=ExtResource("7_qf8tx")]
+visible = false
+
 [connection signal="pressed" from="Button3" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_readme_button_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="ReadmePanel/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="SettingsButton" to="." method="_on_settings_button_pressed"]

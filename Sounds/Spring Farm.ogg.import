@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://hsu87y5ayhl2"
+path="res://.godot/imported/Spring Farm.ogg-953c68858d027169cee3a128850ae729.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sounds/Spring Farm.ogg"
+dest_files=["res://.godot/imported/Spring Farm.ogg-953c68858d027169cee3a128850ae729.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

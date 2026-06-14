@@ -1,0 +1,196 @@
+[gd_scene format=3 uid="uid://capsskhia8fce"]
+
+[ext_resource type="Script" uid="uid://dymx5r2bnus7g" path="res://Scene/SettingsUI.gd" id="1_5ii8p"]
+[ext_resource type="Texture2D" uid="uid://6e62tkhn3hwm" path="res://Textures/SettingsBG.png" id="2_nfba6"]
+[ext_resource type="Texture2D" uid="uid://dver4qvnb2y08" path="res://Textures/CloseButton.png" id="3_bvaaw"]
+[ext_resource type="Texture2D" uid="uid://dbih4ohepkfx8" path="res://Textures/SoundsButton.png" id="3_y6gj8"]
+[ext_resource type="Texture2D" uid="uid://d336q4lct74mc" path="res://Textures/VolumeButton.png" id="4_bvaaw"]
+[ext_resource type="Texture2D" uid="uid://ci1rfvgsof70s" path="res://Textures/QuestGameBG.png" id="4_x3plq"]
+[ext_resource type="Texture2D" uid="uid://5lj1u18biqp2" path="res://Textures/BobbyAvatar.png" id="5_x3plq"]
+[ext_resource type="FontFile" uid="uid://c3ggsycm3sove" path="res://LilitaOne-Regular.ttf" id="6_d8xlt"]
+[ext_resource type="FontFile" uid="uid://dc1uyqkwuun41" path="res://LilitaOne-Russian.ttf" id="6_x3plq"]
+
+[node name="SettingsUI" type="CanvasLayer" unique_id=528602224]
+script = ExtResource("1_5ii8p")
+
+[node name="Overlay" type="ColorRect" parent="." unique_id=1212244251]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 0.5882353)
+
+[node name="MainPanel" type="TextureRect" parent="." unique_id=2064747565]
+anchors_preset = -1
+offset_left = 256.0
+offset_top = 120.0
+offset_right = 1035.0
+offset_bottom = 625.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+texture = ExtResource("2_nfba6")
+
+[node name="Title" type="Label" parent="MainPanel" unique_id=2018379362]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.32200003
+anchor_top = -0.21300001
+anchor_right = -0.32200003
+anchor_bottom = -0.21300001
+offset_left = 584.338
+offset_top = 152.065
+offset_right = 693.838
+offset_bottom = 228.565
+
+[node name="CloseButton" type="TextureButton" parent="MainPanel" unique_id=370985456]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.32200003
+anchor_top = -0.21300001
+anchor_right = -0.32200003
+anchor_bottom = -0.21300001
+offset_left = 898.838
+offset_top = 123.56501
+offset_right = 1108.838
+offset_bottom = 260.93152
+scale = Vector2(0.5887069, 0.64062184)
+texture_normal = ExtResource("3_bvaaw")
+
+[node name="ProfileBox" type="TextureRect" parent="MainPanel" unique_id=1630014488]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.32200003
+anchor_top = -0.21300001
+anchor_right = -0.32200003
+anchor_bottom = -0.21300001
+offset_left = 346.838
+offset_top = 171.565
+offset_right = 669.338
+offset_bottom = 539.565
+texture = ExtResource("4_x3plq")
+expand_mode = 1
+
+[node name="Avatar" type="TextureRect" parent="MainPanel/ProfileBox" unique_id=1547736991]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.573
+anchor_top = -0.41900003
+anchor_right = -0.573
+anchor_bottom = -0.41900003
+offset_left = 256.79248
+offset_top = 215.6
+offset_right = 416.79254
+offset_bottom = 375.6
+texture = ExtResource("5_x3plq")
+expand_mode = 1
+
+[node name="NameInput" type="Label" parent="MainPanel/ProfileBox" unique_id=760435474]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.0680001
+anchor_top = -0.47500002
+anchor_right = -1.0680001
+anchor_bottom = -0.47500002
+offset_left = 392.43002
+offset_top = 382.0
+offset_right = 616.43
+offset_bottom = 430.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("6_x3plq")
+theme_override_font_sizes/font_size = 32
+text = "name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="IDLabel" type="Label" parent="MainPanel/ProfileBox" unique_id=671126924]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.587
+anchor_top = -0.41900003
+anchor_right = -0.587
+anchor_bottom = -0.41900003
+offset_left = 237.3075
+offset_top = 391.6
+offset_right = 453.3075
+offset_bottom = 447.6
+scale = Vector2(1.0332036, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("6_x3plq")
+theme_override_font_sizes/font_size = 20
+text = "id"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VersionLabel" type="Label" parent="MainPanel" unique_id=1195159700]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.32200003
+anchor_top = -0.21300001
+anchor_right = -0.32200003
+anchor_bottom = -0.21300001
+offset_left = 568.338
+offset_top = 539.565
+offset_right = 736.338
+offset_bottom = 568.065
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("6_d8xlt")
+theme_override_font_sizes/font_size = 16
+text = "ver"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MusicButton" type="TextureButton" parent="MainPanel" unique_id=1946582127]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 440.0
+offset_top = 296.0
+offset_right = 570.0
+offset_bottom = 424.0
+scale = Vector2(0.7, 0.7)
+texture_normal = ExtResource("4_bvaaw")
+
+[node name="SoundButton" type="TextureButton" parent="MainPanel" unique_id=923306553]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 440.0
+offset_top = 112.0
+offset_right = 568.0
+offset_bottom = 240.0
+scale = Vector2(0.7, 0.7)
+texture_normal = ExtResource("3_y6gj8")
+
+[node name="MusicSlider" type="HSlider" parent="MainPanel" unique_id=2144413828]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 536.0
+offset_top = 320.0
+offset_right = 680.0
+offset_bottom = 360.0
+max_value = 1.0
+step = 0.05
+value = 0.5
+
+[node name="SoundSlider" type="HSlider" parent="MainPanel" unique_id=803146277]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 536.0
+offset_top = 136.0
+offset_right = 680.0
+offset_bottom = 176.0
+max_value = 1.0
+step = 0.05
+value = 0.5
+
+[connection signal="pressed" from="MainPanel/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="MainPanel/CloseButton" to="." method="_on_closesound_button_pressed"]
+[connection signal="pressed" from="MainPanel/MusicButton" to="." method="_on_music_button_pressed"]
+[connection signal="pressed" from="MainPanel/SoundButton" to="." method="_on_sound_button_pressed"]

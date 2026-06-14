@@ -29,6 +29,13 @@ extends Node2D
 var grid := []
 var barn_pos: Vector2 
 var is_tutorial_active := false
+var last_empty_generator_id := -1
+var last_empty_generator_tap_time := -100.0
+var last_empty_generator_hint_time := -100.0
+var pending_rewarded_ad_type := ""
+
+const EMPTY_GENERATOR_DOUBLE_TAP_WINDOW := 3.0
+const EMPTY_GENERATOR_HINT_COOLDOWN := 30.0
 
 # Константы сетки
 const GRID_SIZE := 6
@@ -40,6 +47,8 @@ const PANEL_ITEM_SIZE := 225.0
 
 func _ready():
 	randomize()
+	if Global.session_started_at <= 0.0:
+		Global.session_started_at = Time.get_unix_time_from_system()
 	setup_textures_in_global()
 	create_grid()
 	
@@ -59,6 +68,9 @@ func _ready():
 	spawn_generators_only()
 	check_offline_production()
 
+	if not Ads.rewarded_ad_completed.is_connected(_on_rewarded_ad_completed):
+		Ads.rewarded_ad_completed.connect(_on_rewarded_ad_completed)
+
 	if not Global.is_tutorial_done:
 		call_deferred("start_tutorial")
 	else:
@@ -66,6 +78,7 @@ func _ready():
 
 func _process(_delta):
 	var now = Time.get_unix_time_from_system()
+	refresh_generator_charges(now)
 
 	# ЛЕС (Авто-монеты)
 	if Global.forest_unlocked:
@@ -124,6 +137,38 @@ func update_bobby(text: String, _mood: String = ""):
 		create_tween().tween_property(tutorial_label, "visible_ratio", 1.0, 0.4)
 	if bobby_character: bobby_character.texture = Global.bobby_texture
 
+func show_temporary_bobby_hint(text: String, duration: float = 3.0):
+	if not tutorial_layer:
+		return
+	update_bobby(text)
+	var expected_text = text
+	var tutorial_was_active = is_tutorial_active and not Global.is_tutorial_done
+	get_tree().create_timer(duration).timeout.connect(func():
+		if not is_instance_valid(self) or not tutorial_layer or not tutorial_label:
+			return
+		if tutorial_label.text != expected_text:
+			return
+		if tutorial_was_active:
+			update_bobby(Global.get_bobby_text("Game"))
+		else:
+			tutorial_layer.visible = false
+	)
+
+func maybe_show_empty_generator_bobby_hint(item_id: int):
+	if Global.is_tutorial_done == false and int(Global.tutorial_step) < 10:
+		return
+	var now = Time.get_unix_time_from_system()
+	var is_second_tap = item_id == last_empty_generator_id and now - last_empty_generator_tap_time <= EMPTY_GENERATOR_DOUBLE_TAP_WINDOW
+	last_empty_generator_id = item_id
+	last_empty_generator_tap_time = now
+	if not is_second_tap:
+		return
+	if now - last_empty_generator_hint_time < EMPTY_GENERATOR_HINT_COOLDOWN:
+		return
+	last_empty_generator_hint_time = now
+	var generator_name = str(Global.items_data[item_id].get("name", "генератор"))
+	show_temporary_bobby_hint("Сейчас %s пуста. Можешь пока объединять предметы и вернуться чуть позже." % generator_name.to_lower(), 3.5)
+
 func _on_inventory_changed():
 	if Global.is_tutorial_done:
 		if tutorial_layer: tutorial_layer.visible = false
@@ -167,54 +212,152 @@ func show_arrow(pos: Vector2):
 
 func use_generator(item):
 	var step = int(Global.tutorial_step)
-	if is_tutorial_active and not step in [2, 5]: return 
+	if is_tutorial_active and not step in [2, 5]: return
+	if not has_generator_charge(item.item_id):
+		Global.play_sound("error")
+		if item.has_method("show_generator_cooldown_hint"):
+			item.show_generator_cooldown_hint(get_generator_time_left(item.item_id))
+		if item.item_id in [101, 102] and Global.can_claim_generator_ad(item.item_id):
+			request_rewarded_ad("generator_" + str(item.item_id))
+		else:
+			maybe_show_empty_generator_bobby_hint(item.item_id)
+		return
 	var empty_cell = find_nearest_empty_cell()
 	if empty_cell != Vector2i(-1, -1):
+		consume_generator_charge(item.item_id)
+		Global.play_sound("spawn")
 		var spawn_id = 1 if is_tutorial_active else Global.items_data[item.item_id]["spawn_list"].pick_random()
 		spawn_item(empty_cell, spawn_id)
+		if item.has_method("update_generator_charge_label"):
+			item.update_generator_charge_label(get_generator_charge_text(item.item_id))
 		if is_tutorial_active and (step == 2 or step == 5): next_tutorial_step()
 		save_current_grid(); Global.save_game()
 
-func item_released(item):
-	if item.global_position.distance_to(barn_pos) < 100:
-		if item.item_id < 100: collect_to_inventory(item)
-		else: item.return_to_cell()
+func format_seconds_to_mmss(seconds: float) -> String:
+	var total_seconds = int(ceil(seconds))
+	var minutes = total_seconds / 60
+	var secs = total_seconds % 60
+	return "%02d:%02d" % [minutes, secs]
+
+func request_rewarded_ad(reward_type: String):
+	if reward_type == "generator_101" and not Global.can_claim_generator_ad(101):
 		return
+	if reward_type == "generator_102" and not Global.can_claim_generator_ad(102):
+		return
+	pending_rewarded_ad_type = reward_type
+	Ads.show_rewarded_ad(reward_type)
+
+func grant_ad_reward(reward_type: String):
+	if reward_type == "generator_101":
+		add_generator_charges(101, 10)
+		Global.mark_generator_ad_claimed(101)
+		show_temporary_bobby_hint("Реклама просмотрена! Клумба получила +10 зарядов.", 2.5)
+	elif reward_type == "generator_102":
+		add_generator_charges(102, 2)
+		Global.mark_generator_ad_claimed(102)
+		show_temporary_bobby_hint("Реклама просмотрена! Пруд получил +2 заряда.", 2.5)
+
+func _on_rewarded_ad_completed(reward_type: String):
+	if reward_type != pending_rewarded_ad_type:
+		return
+	pending_rewarded_ad_type = ""
+	grant_ad_reward(reward_type)
+
+func add_generator_charges(gen_id: int, amount: int):
+	if not Global.generator_states.has(gen_id):
+		return
+	var state = Global.generator_states[gen_id]
+	var max_charges = int(Global.items_data[gen_id].get("max_charges", state.get("max_charges", 1)))
+	state["max_charges"] = max_charges
+	state["charges"] = min(max_charges, int(state.get("charges", 0)) + amount)
+	if int(state["charges"]) >= max_charges:
+		state["last_charge_time"] = Time.get_unix_time_from_system()
+	refresh_generator_visuals()
+	Global.save_game()
+
+func item_released(item):
+	var item_id = int(item.item_id)
+	var home_pos = grid_to_screen(item.grid_position)
+	
+	# 1. ПРОВЕРКА НА КЛИК (Только для монет ID 50)
+	# Если это монетка и ее почти не сдвинули — собираем по клику
+	if item_id == 50 and item.global_position.distance_to(home_pos) < 20:
+		collect_to_inventory(item)
+		return
+
+	# 2. ПРОВЕРКА НА ПОДНОС К АМБАРУ (Для всех предметов, включая Кристалл 60)
+	if item.global_position.distance_to(barn_pos) < 100:
+		if item_id < 100: 
+			collect_to_inventory(item)
+		else: 
+			item.return_to_cell()
+		return
+
+	# 3. ЛОГИКА СЕТКИ (Перемещение и мердж)
 	var target_coord = get_nearest_cell(item.global_position)
 	if is_inside_grid(target_coord):
 		var target_idx = target_coord.y * GRID_SIZE + target_coord.x + 1
-		if target_idx > Global.unlocked_cells: item.return_to_cell(); return
+		if target_idx > Global.unlocked_cells: 
+			item.return_to_cell()
+			return
+			
 		var target_item = grid[target_coord.x][target_coord.y]["item"]
-		if target_item == null: move_item(item, item.grid_position, target_coord)
-		elif target_item != item and target_item.item_id == item.item_id: merge_items(item, target_item, target_coord)
-		else: item.return_to_cell()
-	else: item.return_to_cell()
+		
+		if target_item == null: 
+			move_item(item, item.grid_position, target_coord)
+		elif target_item != item and int(target_item.item_id) == item_id: 
+			merge_items(item, target_item, target_coord)
+		else: 
+			item.return_to_cell()
+	else: 
+		item.return_to_cell()
 
 func merge_items(dragged, target, coord):
 	var next_id = Global.items_data[dragged.item_id]["merge_result"]
 	if next_id == -1: dragged.return_to_cell(); return
+	Global.play_sound("merge")
 	grid[dragged.grid_position.x][dragged.grid_position.y]["item"] = null
 	grid[coord.x][coord.y]["item"] = null
 	dragged.queue_free(); target.queue_free(); spawn_item(coord, next_id)
 	save_current_grid(); Global.save_game()
 
 func collect_to_inventory(item):
+	var item_id = int(item.item_id)
 	var is_needed = false
+	
 	for q in Global.active_quests:
-		if int(q["require_id"]) == item.item_id: is_needed = true; break
-	if item.item_id >= 3 or is_needed:
-		if Global.add_to_inventory(item.item_id):
+		if int(q["require_id"]) == item_id: 
+			is_needed = true
+			break
+	
+	# Условие сбора: уровень 3+, квест, монета или кристалл
+	if item_id >= 3 or is_needed or item_id == 50 or item_id == 60:
+		if Global.add_to_inventory(item_id):
+			
+			# РАЗДЕЛЯЕМ ЗВУКИ:
+			if item_id == 50:
+				Global.play_sound("coin")     # Звук звона монет для ID 50
+			else:
+				Global.play_sound("collect")  # Звук сбора для кристаллов (60) и прочего
+			
 			grid[item.grid_position.x][item.grid_position.y]["item"] = null
+			
 			var tw = create_tween()
 			tw.set_parallel(true)
 			tw.tween_property(item, "global_position", barn_pos, 0.3)
 			tw.tween_property(item, "scale", Vector2.ZERO, 0.3)
 			tw.finished.connect(item.queue_free)
-			save_current_grid(); Global.save_game()
+			
+			save_current_grid()
+			Global.save_game()
 		else:
-			shake_barn_icon(); item.return_to_cell()
+			Global.play_sound("error") 
+			shake_barn_icon()
+			item.return_to_cell()
 	else:
-		update_bobby("Этот предмет еще слишком мал!"); item.return_to_cell()
+		Global.play_sound("error")
+		show_temporary_bobby_hint("Этот предмет еще слишком мал!", 1.8)
+		item.return_to_cell()
 
 func create_grid():
 	for child in get_children():
@@ -295,6 +438,8 @@ func refresh_generator_visuals():
 		if child.has_method("set_item_data") and child.item_id >= 101:
 			var icon = child.get_node_or_null("FlowerIcon")
 			if icon: icon.texture = Global.items_data[child.item_id]["texture"]
+			if child.has_method("update_generator_charge_label"):
+				child.update_generator_charge_label(get_generator_charge_text(child.item_id))
 
 func load_saved_grid():
 	for data in Global.saved_grid: spawn_item(Vector2i(data["x"], data["y"]), data["id"])
@@ -324,6 +469,7 @@ func _on_back_button_pressed():
 	save_current_grid()
 	if Global.get_item_count_in_inventory(1) >= 3 and int(Global.tutorial_step) < 8: Global.tutorial_step = 8
 	Global.save_game()
+	Global.play_sound("click")
 	get_tree().change_scene_to_file("res://Scene/WorldMap.tscn")
 
 func remove_item_from_grid(coord: Vector2i):
@@ -335,3 +481,92 @@ func remove_item_from_grid(coord: Vector2i):
 func spawn_start_items():
 	# Оставляем одну косточку (ID 1) в центре, чтобы игрок начал туториал
 	spawn_item(Vector2i(2, 1), 1)
+
+
+func refresh_generator_charges(now: float):
+	for gen_id in Global.generator_states.keys():
+		var state = Global.generator_states[gen_id]
+		var max_charges = int(Global.items_data[gen_id].get("max_charges", state.get("max_charges", 1)))
+		state["max_charges"] = max_charges
+		if int(state["charges"]) >= max_charges:
+			state["charges"] = max_charges
+			state["last_charge_time"] = now
+			continue
+		var cooldown = get_generator_cooldown(gen_id)
+		var elapsed = now - float(state["last_charge_time"])
+		if elapsed < cooldown:
+			continue
+		var restored = int(floor(elapsed / cooldown))
+		if restored <= 0:
+			continue
+		state["charges"] = min(max_charges, int(state["charges"]) + restored)
+		state["last_charge_time"] = now - fmod(elapsed, cooldown)
+	for child in get_children():
+		if child.has_method("update_generator_charge_label") and child.item_id >= 101:
+			child.update_generator_charge_label(get_generator_charge_text(child.item_id))
+
+func has_generator_charge(gen_id: int) -> bool:
+	if not Global.generator_states.has(gen_id):
+		return true
+	return int(Global.generator_states[gen_id]["charges"]) > 0
+
+func consume_generator_charge(gen_id: int):
+	if not Global.generator_states.has(gen_id):
+		return
+	var state = Global.generator_states[gen_id]
+	var max_charges = int(Global.items_data[gen_id].get("max_charges", state.get("max_charges", 1)))
+	if int(state["charges"]) == max_charges:
+		state["last_charge_time"] = Time.get_unix_time_from_system()
+	state["charges"] = max(0, int(state["charges"]) - 1)
+
+func get_generator_time_left(gen_id: int) -> float:
+	if not Global.generator_states.has(gen_id):
+		return 0.0
+	var state = Global.generator_states[gen_id]
+	if int(state["charges"]) > 0:
+		return 0.0
+	var cooldown = get_generator_cooldown(gen_id)
+	var elapsed = Time.get_unix_time_from_system() - float(state["last_charge_time"])
+	return max(0.0, cooldown - elapsed)
+
+func get_generator_charge_text(gen_id: int) -> String:
+	if not Global.generator_states.has(gen_id):
+		return ""
+	var state = Global.generator_states[gen_id]
+	var charges = int(state["charges"])
+	var max_charges = int(Global.items_data[gen_id].get("max_charges", state.get("max_charges", 1)))
+	if charges > 0:
+		return str(charges) + "/" + str(max_charges)
+	var seconds_left = int(ceil(get_generator_time_left(gen_id)))
+	return str(seconds_left) + "с"
+
+func get_generator_cooldown(gen_id: int) -> float:
+	var base_cooldown = float(Global.items_data[gen_id].get("cooldown", 1.0))
+	if is_onboarding_boost_active():
+		return max(1.0, base_cooldown * 0.5)
+	return base_cooldown
+
+func is_onboarding_boost_active() -> bool:
+	if Global.session_started_at <= 0.0:
+		return false
+	return Time.get_unix_time_from_system() - Global.session_started_at < 600.0
+
+func _on_settings_button_pressed():
+	# 1. Прячем туториал, если он активен, чтобы не мешал
+	Global.play_sound("click")
+	if tutorial_layer:
+		tutorial_layer.visible = false
+	
+	# 2. Вызываем настройки через уникальное имя (%)
+	# Если ты поставил галочку в редакторе, это сработает из любого места дерева
+	var settings = get_node_or_null("%SettingsUI")
+	
+	if settings:
+		settings.open_settings()
+	else:
+		# Если вдруг забыл поставить %, попробуем найти просто поиском
+		var backup_settings = find_child("SettingsUI", true)
+		if backup_settings:
+			backup_settings.open_settings()
+		else:
+			print("Ошибка: Узел SettingsUI не найден в сцене Game! Проверь имя или поставь %")

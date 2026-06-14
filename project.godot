@@ -18,6 +18,7 @@ config/icon="res://Textures/icon.svg"
 [autoload]
 
 Global="*uid://3mcb03gx44wt"
+Ads="*res://Scene/Ads.gd"
 
 [display]
 

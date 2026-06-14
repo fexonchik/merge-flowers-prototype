@@ -44,3 +44,9 @@ func _on_button_pressed() -> void:
 		Global.tutorial_step = 1
 		Global.save_game()
 	get_tree().change_scene_to_file("res://Scene/WorldMap.tscn")
+
+
+func _on_settings_button_pressed() -> void:
+	Global.play_sound("click")
+	# Вызываем окно настроек
+	$SettingsUI.open_settings()

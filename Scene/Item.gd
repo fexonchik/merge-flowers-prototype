@@ -10,12 +10,16 @@ var grid_position := Vector2i.ZERO
 func _ready():
 	input_pickable = true
 	# СБРОС МАСШТАБА: чтобы объект всегда был 1:1 при создании
-	scale = Vector2.ONE 
+	scale = Vector2.ONE
+	if item_id >= 101:
+		update_generator_charge_label("")
 
 func set_item_data(new_item_id: int, new_texture: Texture2D, new_name: String, target_size: float):
 	item_id = new_item_id
 	item_name = new_name
 	$FlowerIcon.texture = new_texture
+	if item_id >= 101:
+		update_generator_charge_label(get_parent().get_generator_charge_text(item_id) if get_parent().has_method("get_generator_charge_text") else "")
 	
 	# Масштабируем только иконку
 	var tex_size = new_texture.get_size()
@@ -78,9 +82,9 @@ func set_grid_position(coord: Vector2i):
 func collect_coin():
 	# 1. Защита от двойного клика: выключаем коллизию
 	input_pickable = false 
-	
+	Global.play_sound("coin")
 	# 2. Добавляем деньги в Global
-	Global.coins += 200
+	Global.coins += 250
 	Global.save_game()
 	
 	# Обновляем текст на карте (если мы там)
@@ -92,7 +96,7 @@ func collect_coin():
 	
 	# 4. АНИМАЦИЯ ТЕКСТА
 	var label = $CollectLabel # Наш заранее созданный Label
-	label.text = "+200 $"
+	label.text = "+250 $"
 	label.visible = true
 	label.modulate.a = 1.0 # Убеждаемся, что он не прозрачный
 	label.scale = Vector2(0.5, 0.5) # Начинаем с маленького размера
@@ -117,6 +121,16 @@ func collect_coin():
 		queue_free()
 	)
 	
+func update_generator_charge_label(text: String):
+	if not has_node("ProgressLabel"):
+		return
+	var label = $ProgressLabel
+	label.visible = item_id >= 101
+	label.text = text
+
+func show_generator_cooldown_hint(seconds_left: float):
+	spawn_floating_text("Готово через " + str(int(ceil(seconds_left))) + "с", Color(1, 0.8, 0.4))
+
 func spawn_floating_text(txt: String, color: Color):
 	var label = Label.new()
 	label.text = txt
