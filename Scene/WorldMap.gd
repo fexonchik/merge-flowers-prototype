@@ -1,24 +1,48 @@
 extends Control
 
-@onready var coin_label = $TextureRect2/Label 
+@onready var coin_label = $TextureRect2/Label
 @onready var tutorial = $TutorialLayer
+@onready var gates_label = $TextureRect7/Ворота
+@onready var shop_label = $TextureRect3/Лавка
+@onready var barn_label = $TextureRect4/Амбар
+@onready var farm_label = $TextureRect5/Ферма
+@onready var info_label = $InfoButton/Инфо
+@onready var daily_button = $DailyAdButton
 
 func _ready():
 	update_ui()
+	apply_localization()
 	# Проверяем туториал с небольшой задержкой, чтобы JSON точно успел загрузиться
 	call_deferred("check_tutorial_step")
 	
 	# Подписываемся на изменения: как только сдал квест у ворот, Боби обновит реплику
 	if not Global.is_connected("inventory_changed", check_tutorial_step):
 		Global.inventory_changed.connect(check_tutorial_step)
+	if not Global.is_connected("language_changed", _on_language_changed):
+		Global.language_changed.connect(_on_language_changed)
 
 func update_ui():
 	if coin_label:
-		coin_label.text = "МОНЕТЫ: " + str(Global.coins)
-	var daily_button = get_node_or_null("DailyAdButton")
+		coin_label.text = Global.loc("label_coins", {"coins": Global.coins})
 	if daily_button:
 		daily_button.disabled = not Global.can_claim_daily_ad_bonus()
-		daily_button.text = "Ежедневный бонус" if Global.can_claim_daily_ad_bonus() else "Сегодня уже получено"
+		daily_button.text = Global.loc("daily_bonus_ready") if Global.can_claim_daily_ad_bonus() else Global.loc("daily_bonus_claimed")
+
+func apply_localization():
+	if gates_label:
+		gates_label.text = Global.loc("map_gates")
+	if shop_label:
+		shop_label.text = Global.loc("map_shop")
+	if barn_label:
+		barn_label.text = Global.loc("map_barn")
+	if farm_label:
+		farm_label.text = Global.loc("map_farm")
+	if info_label:
+		info_label.text = Global.loc("map_info_items")
+	update_ui()
+
+func _on_language_changed(_new_language):
+	apply_localization()
 
 # --- УПРАВЛЕНИЕ БОББИ (ЧЕРЕЗ JSON) ---
 
@@ -87,8 +111,28 @@ func _on_info_button_pressed():
 func _on_daily_ad_button_pressed():
 	if not Global.can_claim_daily_ad_bonus():
 		return
+	if not Ads.rewarded_ad_completed.is_connected(_on_rewarded_ad_completed):
+		Ads.rewarded_ad_completed.connect(_on_rewarded_ad_completed)
+	if not Ads.rewarded_ad_failed.is_connected(_on_rewarded_ad_failed):
+		Ads.rewarded_ad_failed.connect(_on_rewarded_ad_failed)
 	Ads.show_rewarded_ad("daily_bonus")
+
+func _on_rewarded_ad_completed(reward_type: String):
+	if reward_type != "daily_bonus":
+		return
+	if Ads.rewarded_ad_completed.is_connected(_on_rewarded_ad_completed):
+		Ads.rewarded_ad_completed.disconnect(_on_rewarded_ad_completed)
+	if Ads.rewarded_ad_failed.is_connected(_on_rewarded_ad_failed):
+		Ads.rewarded_ad_failed.disconnect(_on_rewarded_ad_failed)
 	grant_daily_ad_bonus()
+
+func _on_rewarded_ad_failed(reward_type: String):
+	if reward_type != "daily_bonus":
+		return
+	if Ads.rewarded_ad_completed.is_connected(_on_rewarded_ad_completed):
+		Ads.rewarded_ad_completed.disconnect(_on_rewarded_ad_completed)
+	if Ads.rewarded_ad_failed.is_connected(_on_rewarded_ad_failed):
+		Ads.rewarded_ad_failed.disconnect(_on_rewarded_ad_failed)
 
 func grant_daily_ad_bonus():
 	var roll = randi() % 100

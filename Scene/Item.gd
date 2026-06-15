@@ -129,7 +129,7 @@ func update_generator_charge_label(text: String):
 	label.text = text
 
 func show_generator_cooldown_hint(seconds_left: float):
-	spawn_floating_text("Готово через " + str(int(ceil(seconds_left))) + "с", Color(1, 0.8, 0.4))
+	spawn_floating_text(Global.loc("shop_repeat_in", {"time": Global.loc("game_seconds_short", {"seconds": int(ceil(seconds_left))})}), Color(1, 0.8, 0.4))
 
 func spawn_floating_text(txt: String, color: Color):
 	var label = Label.new()

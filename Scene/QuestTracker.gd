@@ -13,6 +13,8 @@ extends Control
 func _ready():
 	if not Global.is_connected("inventory_changed", update_tracker_ui):
 		Global.inventory_changed.connect(update_tracker_ui)
+	if not Global.is_connected("language_changed", _on_language_changed):
+		Global.language_changed.connect(_on_language_changed)
 	
 	if hide_button:
 		# Очищаем старые коннекты на всякий случай
@@ -46,8 +48,8 @@ func update_tracker_ui():
 	var current_quest_id = int(quest["id"])
 	
 	# Заполняем доску
-	title_label.text = quest["title"]
-	reward_label.text = "Награда: " + str(int(quest["reward"])) + " $"
+	title_label.text = _get_localized_text(quest.get("title", ""))
+	reward_label.text = Global.loc("reward_label", {"reward": int(quest["reward"])})
 	
 	var item_id = int(quest["require_id"])
 	if Global.items_data.has(item_id):
@@ -65,7 +67,7 @@ func update_tracker_ui():
 		if Global.is_tutorial_done and Global.bobby_hidden_quest_id != current_quest_id:
 			bobby_wrapper.visible = true
 			if bobby_text_label:
-				var bobby_phrase = quest.get("bobby_text", "Удачи!")
+				var bobby_phrase = _get_localized_text(quest.get("bobby_text", "hint_default"))
 				if bobby_text_label.text != bobby_phrase:
 					bobby_text_label.text = bobby_phrase
 					animate_text(bobby_text_label)
@@ -78,6 +80,16 @@ func update_tracker_ui():
 		progress_label.add_theme_color_override("font_color", Color.GREEN_YELLOW)
 	else:
 		progress_label.add_theme_color_override("font_color", Color.WHITE)
+
+func _get_localized_text(value) -> String:
+	if value is Dictionary:
+		return str(value.get(Global.current_language, value.get("ru", "")))
+	if typeof(value) == TYPE_STRING and String(value) == "hint_default":
+		return Global.loc("hint_default")
+	return str(value)
+
+func _on_language_changed(_new_language):
+	update_tracker_ui()
 
 func toggle_quest_elements(state: bool):
 	icon.visible = state

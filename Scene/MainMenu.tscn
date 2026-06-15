@@ -53,9 +53,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -128.0
-offset_top = -256.0
+offset_top = -248.0
 offset_right = 122.0
-offset_bottom = -86.0
+offset_bottom = -78.0
 grow_horizontal = 2
 grow_vertical = 0
 scale = Vector2(1.0400001, 1)
@@ -67,39 +67,15 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_6nqpc")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_6nqpc")
 text = "Выйти"
 
-[node name="Button2" type="Button" parent="." unique_id=761372594]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -128.0
-offset_top = -88.0
-offset_right = 122.0
-offset_bottom = 82.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1.0400001, 1)
-theme_override_fonts/font = ExtResource("3_o3nbu")
-theme_override_font_sizes/font_size = 38
-theme_override_styles/normal = SubResource("StyleBoxTexture_6nqpc")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_6nqpc")
-theme_override_styles/hover = SubResource("StyleBoxTexture_6nqpc")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_6nqpc")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_6nqpc")
-text = "README
-"
-
 [node name="Button" type="Button" parent="." unique_id=2028570279]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -128.0
-offset_top = 72.0
+offset_top = 80.0
 offset_right = 122.0
-offset_bottom = 242.0
+offset_bottom = 250.0
 grow_horizontal = 2
 scale = Vector2(1.0400001, 1)
 theme_override_fonts/font = ExtResource("3_o3nbu")
@@ -149,22 +125,22 @@ metadata/_edit_use_anchors_ = true
 
 [node name="DialogueBox" type="TextureRect" parent="TutorialLayer" unique_id=751758478]
 offset_left = 376.0
-offset_top = 200.0
-offset_right = 960.0
-offset_bottom = 523.0
+offset_top = 176.0
+offset_right = 976.0
+offset_bottom = 544.0
 texture = ExtResource("5_o3nbu")
 
 [node name="TutorialLabel" type="Label" parent="TutorialLayer/DialogueBox" unique_id=1673092111]
 layout_mode = 0
-offset_left = 72.0
+offset_left = 80.0
 offset_top = 104.0
-offset_right = 496.0
-offset_bottom = 232.0
+offset_right = 544.0
+offset_bottom = 272.0
 theme_override_colors/font_color = Color(0.95845705, 0.5564531, 0.65444404, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("3_o3nbu")
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 33
 text = "ff"
 autowrap_mode = 2
 
@@ -180,7 +156,6 @@ texture_normal = ExtResource("6_6nqpc")
 visible = false
 
 [connection signal="pressed" from="Button3" to="." method="_on_exit_button_pressed"]
-[connection signal="pressed" from="Button2" to="." method="_on_readme_button_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="ReadmePanel/CloseButton" to="." method="_on_close_button_pressed"]

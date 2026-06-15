@@ -1,213 +1,248 @@
 [
-  { "id": 1, "title": "Первые шаги", "bobby_text": "Привет! Нам нужно подготовить почву. Собери 3 косточки!", "require_id": 1, "require_count": 3, "reward": 180 },
+  {
+    "id": 1,
+    "title": {"ru": "Первые шаги", "en": "First Steps"},
+    "bobby_text": {"ru": "Привет! Нам нужно подготовить почву. Собери 3 косточки!", "en": "Hi! We need to prepare the soil. Collect 3 seeds!"},
+    "require_id": 1,
+    "require_count": 3,
+    "reward": 180
+  },
   {
     "id": 2,
-    "title": "Зеленые ростки",
-    "bobby_text": "Отлично! Теперь мне нужно 3 ростка (ур. 2), чтобы высадить их вдоль забора.",
+    "title": {"ru": "Зеленые ростки", "en": "Green Sprouts"},
+    "bobby_text": {"ru": "Отлично! Теперь мне нужно 3 ростка (ур. 2), чтобы высадить их вдоль забора.", "en": "Great! Now I need 3 sprouts (lvl. 2) to plant along the fence."},
     "require_id": 2,
     "require_count": 3,
     "reward": 140
   },
   {
     "id": 3,
-    "title": "Свежесть листьев",
-    "bobby_text": "Мэр просил свежей зелени для декора. Собери 2 Листика (ур. 3).",
+    "title": {"ru": "Свежесть листьев", "en": "Fresh Leaves"},
+    "bobby_text": {"ru": "Мэр просил свежей зелени для декора. Собери 2 Листика (ур. 3).", "en": "The mayor asked for fresh greenery for decoration. Collect 2 Leaves (lvl. 3)."},
     "require_id": 3,
     "require_count": 2,
     "reward": 220
   },
   {
     "id": 4,
-    "title": "Подготовка поля",
-    "bobby_text": "Места становится мало? Сдай мне еще 4 ростка, и получишь монеты на новую ячейку!",
+    "title": {"ru": "Подготовка поля", "en": "Field Preparation"},
+    "bobby_text": {"ru": "Места становится мало? Сдай мне еще 4 ростка, и получишь монеты на новую ячейку!", "en": "Running out of space? Bring me 4 more sprouts and you'll get coins for a new cell!"},
     "require_id": 2,
     "require_count": 4,
     "reward": 260
   },
   {
     "id": 5,
-    "title": "Молодой сад",
-    "bobby_text": "Смотри, как они вытянулись! Мне нужно 2 Молодых ростка (ур. 4).",
+    "title": {"ru": "Молодой сад", "en": "Young Garden"},
+    "bobby_text": {"ru": "Смотри, как они вытянулись! Мне нужно 2 Молодых ростка (ур. 4).", "en": "Look how they've grown! I need 2 Young Sprouts (lvl. 4)."},
     "require_id": 4,
     "require_count": 2,
     "reward": 360
   },
   {
     "id": 6,
-    "title": "Больше косточек",
-    "bobby_text": "Запас семян иссяк. Нажми на клумбу и принеси 5 косточек.",
+    "title": {"ru": "Больше косточек", "en": "More Seeds"},
+    "bobby_text": {"ru": "Запас семян иссяк. Нажми на клумбу и принеси 5 косточек.", "en": "We're out of seeds. Tap the flower bed and bring me 5 seeds."},
     "require_id": 1,
     "require_count": 5,
     "reward": 170
   },
   {
     "id": 7,
-    "title": "Цветочные амбиции",
-    "bobby_text": "Первый Бутон (ур. 5)! Это знаковый момент. Принеси мне один такой.",
+    "title": {"ru": "Цветочные амбиции", "en": "Floral Ambitions"},
+    "bobby_text": {"ru": "Первый Бутон (ур. 5)! Это знаковый момент. Принеси мне один такой.", "en": "The first Bud (lvl. 5)! This is a milestone. Bring me one."},
     "require_id": 5,
     "require_count": 1,
     "reward": 520
   },
   {
     "id": 8,
-    "title": "Заказ для лавки",
-    "bobby_text": "Продавец в лавке просит 4 листика (ур. 3) для украшения витрины.",
+    "title": {"ru": "Заказ для лавки", "en": "Order for the Shop"},
+    "bobby_text": {"ru": "Продавец в лавке просит 4 листика (ур. 3) для украшения витрины.", "en": "The shopkeeper needs 4 leaves (lvl. 3) to decorate the display."},
     "require_id": 3,
     "require_count": 4,
     "reward": 420
   },
   {
     "id": 9,
-    "title": "Парковая зона",
-    "bobby_text": "Для городского парка нужно 3 молодых ростка (ур. 4). Сделаешь?",
+    "title": {"ru": "Парковая зона", "en": "Park Area"},
+    "bobby_text": {"ru": "Для городского парка нужно 3 молодых ростка (ур. 4). Сделаешь?", "en": "The city park needs 3 young sprouts (lvl. 4). Can you do it?"},
     "require_id": 4,
     "require_count": 3,
     "reward": 620
   },
   {
     "id": 10,
-    "title": "Бутонная лихорадка",
-    "bobby_text": "Все хотят цветы! Принеси 3 бутона (ур. 5). Это принесет нам отличную прибыль.",
+    "title": {"ru": "Бутонная лихорадка", "en": "Bud Fever"},
+    "bobby_text": {"ru": "Все хотят цветы! Принеси 3 бутона (ур. 5). Это принесет нам отличную прибыль.", "en": "Everyone wants flowers! Bring me 3 buds (lvl. 5). This will bring us a great profit."},
     "require_id": 5,
     "require_count": 3,
     "reward": 980
   },
   {
     "id": 11,
-    "title": "Время цвести",
-    "bobby_text": "Ого! Это настоящий Цветок (ур. 6). Собери один для моей коллекции.",
+    "title": {"ru": "Время цвести", "en": "Time to Bloom"},
+    "bobby_text": {"ru": "Ого! Это настоящий Цветок (ур. 6). Собери один для моей коллекции.", "en": "Wow! That's a real Flower (lvl. 6). Collect one for my collection."},
     "require_id": 6,
     "require_count": 1,
     "reward": 1200
   },
   {
     "id": 12,
-    "title": "Зеленый массив",
-    "bobby_text": "Нам нужно много зелени. Собери 6 ростков (ур. 2) и 3 листика (ур. 3).",
+    "title": {"ru": "Зеленый массив", "en": "Green Mass"},
+    "bobby_text": {"ru": "Нам нужно много зелени. Собери 6 ростков (ур. 2) и 3 листика (ур. 3).", "en": "We need lots of greenery. Collect 6 sprouts (lvl. 2) and 3 leaves (lvl. 3)."},
     "require_id": 3,
     "require_count": 5,
     "reward": 900
   },
   {
     "id": 13,
-    "title": "Садовый стандарт",
-    "bobby_text": "Мэрия требует качества. Принеси 4 молодых ростка (ур. 4).",
+    "title": {"ru": "Садовый стандарт", "en": "Garden Standard"},
+    "bobby_text": {"ru": "Мэрия требует качества. Принеси 4 молодых ростка (ур. 4).", "en": "The city hall demands quality. Bring 4 young sprouts (lvl. 4)."},
     "require_id": 4,
     "require_count": 4,
     "reward": 980
   },
   {
     "id": 14,
-    "title": "Розовые мечты",
-    "bobby_text": "Роза (ур. 7) — это королева сада! Мне нужна одна, чтобы удивить соседей.",
+    "title": {"ru": "Розовые мечты", "en": "Rose Dreams"},
+    "bobby_text": {"ru": "Роза (ур. 7) — это королева сада! Мне нужна одна, чтобы удивить соседей.", "en": "A Rose (lvl. 7) is the queen of the garden! I need one to impress the neighbors."},
     "require_id": 7,
     "require_count": 1,
     "reward": 1800
   },
-  { "id": 15, "title": "Расширяем горизонты", "bobby_text": "Пора копить на Шахту. Принеси 2 цветка (ур. 6), и я добавлю тебе монет.", "require_id": 6, "require_count": 2, "reward": 1900 },
-  { "id": 16, "title": "Первый блеск", "bobby_text": "Ого! В лавке теперь есть Шахта. Купи её и принеси мне 1 Кристалл (ID 60)!", "require_id": 60, "require_count": 1, "reward": 1800 },
-  { "id": 17, "title": "Драгоценный декор", "bobby_text": "Кристаллы отлично смотрятся. Принеси еще 3 штуки.", "require_id": 60, "require_count": 3, "reward": 2600 },
+  {
+    "id": 15,
+    "title": {"ru": "Расширяем горизонты", "en": "Expanding Horizons"},
+    "bobby_text": {"ru": "Пора копить на Шахту. Принеси 2 цветка (ур. 6), и я добавлю тебе монет.", "en": "Time to save up for the Mine. Bring 2 flowers (lvl. 6), and I'll add some coins."},
+    "require_id": 6,
+    "require_count": 2,
+    "reward": 1900
+  },
+  {
+    "id": 16,
+    "title": {"ru": "Первый блеск", "en": "First Shine"},
+    "bobby_text": {"ru": "Ого! В лавке теперь есть Шахта. Купи её и принеси мне 1 Кристалл (ID 60)!", "en": "Wow! The shop now has a Mine. Buy it and bring me 1 Crystal (ID 60)!"},
+    "require_id": 60,
+    "require_count": 1,
+    "reward": 1800
+  },
+  {
+    "id": 17,
+    "title": {"ru": "Драгоценный декор", "en": "Precious Decor"},
+    "bobby_text": {"ru": "Кристаллы отлично смотрятся. Принеси еще 3 штуки.", "en": "Crystals look amazing. Bring 3 more."},
+    "require_id": 60,
+    "require_count": 3,
+    "reward": 2600
+  },
   {
     "id": 18,
-    "title": "Королевский сад",
-    "bobby_text": "Мэр хочет Розы. Много роз! Собери 2 Розы (ур. 7).",
+    "title": {"ru": "Королевский сад", "en": "Royal Garden"},
+    "bobby_text": {"ru": "Мэр хочет Розы. Много роз! Собери 2 Розы (ур. 7).", "en": "The mayor wants Roses. Lots of roses! Collect 2 Roses (lvl. 7)."},
     "require_id": 7,
     "require_count": 2,
     "reward": 4200
   },
   {
     "id": 19,
-    "title": "Первый блеск",
-    "bobby_text": "Если ты уже купил Шахту — принеси мне 1 Кристалл (ID 60). Посмотрим на него!",
+    "title": {"ru": "Первый блеск", "en": "First Shine"},
+    "bobby_text": {"ru": "Если ты уже купил Шахту — принеси мне 1 Кристалл (ID 60). Посмотрим на него!", "en": "If you've already bought the Mine, bring me 1 Crystal (ID 60). Let's take a look!"},
     "require_id": 60,
     "require_count": 1,
     "reward": 1500
   },
   {
     "id": 20,
-    "title": "Цветочный караван",
-    "bobby_text": "Нам нужна Тележка цветов (ур. 9). Это будет непросто, но награда того стоит!",
+    "title": {"ru": "Цветочный караван", "en": "Flower Caravan"},
+    "bobby_text": {"ru": "Нам нужна Тележка цветов (ур. 9). Это будет непросто, но награда того стоит!", "en": "We need a Flower Cart (lvl. 9). It won't be easy, but the reward is worth it!"},
     "require_id": 9,
     "require_count": 1,
     "reward": 7600
   },
   {
     "id": 21,
-    "title": "Драгоценный декор",
-    "bobby_text": "Кристаллы отлично смотрятся в саду. Собери 3 Кристалла (ID 60).",
+    "title": {"ru": "Драгоценный декор", "en": "Precious Decor"},
+    "bobby_text": {"ru": "Кристаллы отлично смотрятся в саду. Собери 3 Кристалла (ID 60).", "en": "Crystals look great in the garden. Collect 3 Crystals (ID 60)."},
     "require_id": 60,
     "require_count": 3,
     "reward": 3000
   },
   {
     "id": 22,
-    "title": "Флорист-эксперт",
-    "bobby_text": "Принеси мне 3 цветка (ур. 6) и 1 Розу (ур. 7). Нужно для праздника.",
+    "title": {"ru": "Флорист-эксперт", "en": "Florist Expert"},
+    "bobby_text": {"ru": "Принеси мне 3 цветка (ур. 6) и 1 Розу (ур. 7). Нужно для праздника.", "en": "Bring me 3 Flowers (lvl. 6) and 1 Rose (lvl. 7). It's for the celebration."},
     "require_id": 6,
     "require_count": 3,
     "reward": 3200
   },
   {
     "id": 23,
-    "title": "Густые заросли",
-    "bobby_text": "Для живой изгороди нужно 2 Пышных куста (ур. 8). Постарайся!",
+    "title": {"ru": "Густые заросли", "en": "Dense Thickets"},
+    "bobby_text": {"ru": "Для живой изгороди нужно 2 Пышных куста (ур. 8). Постарайся!", "en": "We need 2 Lush Bushes (lvl. 8) for the hedge. Do your best!"},
     "require_id": 8,
     "require_count": 2,
     "reward": 6800
   },
-  { "id": 24, "title": "Энергия недр", "bobby_text": "Шахта работает? Мне нужно 10 Кристаллов для эксперимента.", "require_id": 60, "require_count": 10, "reward": 6500 },
+  {
+    "id": 24,
+    "title": {"ru": "Энергия недр", "en": "Energy of the Depths"},
+    "bobby_text": {"ru": "Шахта работает? Мне нужно 10 Кристаллов для эксперимента.", "en": "Is the Mine working? I need 10 Crystals for an experiment."},
+    "require_id": 60,
+    "require_count": 10,
+    "reward": 6500
+  },
   {
     "id": 25,
-    "title": "Большая поставка",
-    "bobby_text": "Собери 2 Тележки цветов (ур. 9). Город готовится к фестивалю!",
+    "title": {"ru": "Большая поставка", "en": "Big Delivery"},
+    "bobby_text": {"ru": "Собери 2 Тележки цветов (ур. 9). Город готовится к фестивалю!", "en": "Collect 2 Flower Carts (lvl. 9). The city is preparing for the festival!"},
     "require_id": 9,
     "require_count": 2,
     "reward": 16800
   },
   {
     "id": 26,
-    "title": "Легендарный букет",
-    "bobby_text": "Такого еще никто не видел. 3 Розы (ур. 7) и 2 Куста (ур. 8). Живо!",
+    "title": {"ru": "Легендарный букет", "en": "Legendary Bouquet"},
+    "bobby_text": {"ru": "Такого еще никто не видел. 3 Розы (ур. 7) и 2 Куста (ур. 8). Живо!", "en": "No one has ever seen this before. 3 Roses (lvl. 7) and 2 Bushes (lvl. 8). Move it!"},
     "require_id": 7,
     "require_count": 3,
     "reward": 11800
   },
   {
     "id": 27,
-    "title": "Кристальный запас",
-    "bobby_text": "Кристаллов много не бывает. Собери 8 штук (ID 60).",
+    "title": {"ru": "Кристальный запас", "en": "Crystal Reserve"},
+    "bobby_text": {"ru": "Кристаллов много не бывает. Собери 8 штук (ID 60).", "en": "You can never have too many crystals. Collect 8 of them (ID 60)."},
     "require_id": 60,
     "require_count": 8,
     "reward": 7800
   },
   {
     "id": 28,
-    "title": "Цветочный гигант",
-    "bobby_text": "Финальный этап! Машина цветов (ур. 10). Сможешь это сделать?",
+    "title": {"ru": "Цветочный гигант", "en": "Flower Giant"},
+    "bobby_text": {"ru": "Финальный этап! Машина цветов (ур. 10). Сможешь это сделать?", "en": "Final stage! Flower Truck (lvl. 10). Can you do it?"},
     "require_id": 10,
     "require_count": 1,
     "reward": 26000
   },
   {
     "id": 29,
-    "title": "Сокровища сада",
-    "bobby_text": "Принеси мне 10 кристаллов. Мы откроем самые дальние земли!",
+    "title": {"ru": "Сокровища сада", "en": "Garden Treasures"},
+    "bobby_text": {"ru": "Принеси мне 10 кристаллов. Мы откроем самые дальние земли!", "en": "Bring me 10 crystals. We'll unlock the farthest lands!"},
     "require_id": 60,
     "require_count": 10,
     "reward": 9500
   },
   {
     "id": 30,
-    "title": "Абсолютный чемпион",
-    "bobby_text": "Нам нужно 2 Машины цветов (ур. 10). После этого ты станешь легендой!",
+    "title": {"ru": "Абсолютный чемпион", "en": "Ultimate Champion"},
+    "bobby_text": {"ru": "Нам нужно 2 Машины цветов (ур. 10). После этого ты станешь легендой!", "en": "We need 2 Flower Trucks (lvl. 10). After that, you'll become a legend!"},
     "require_id": 10,
     "require_count": 2,
     "reward": 58000
   },
   {
     "id": 100,
-    "title": "Легенда Фермы",
-    "bobby_text": "Это безумие... 5 машин?! Если ты сделаешь это, я признаю тебя величайшим мастером!",
+    "title": {"ru": "Легенда Фермы", "en": "Farm Legend"},
+    "bobby_text": {"ru": "Это безумие... 5 машин?! Если ты сделаешь это, я признаю тебя величайшим мастером!", "en": "This is madness... 5 trucks?! If you do this, I'll recognize you as the greatest master!"},
     "require_id": 10,
     "require_count": 5,
     "reward": 250000

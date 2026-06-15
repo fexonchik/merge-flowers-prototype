@@ -44,7 +44,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("2_28rtf")
 theme_override_font_sizes/font_size = 26
-text = "задание"
+text = "QUEST_SLOT_TITLE"
 horizontal_alignment = 1
 
 [node name="ClaimButton" type="Button" parent="." unique_id=1836079388]
@@ -59,7 +59,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
 theme_override_fonts/font = ExtResource("2_28rtf")
 theme_override_font_sizes/font_size = 20
-text = "сдать"
+text = "QUEST_SLOT_CLAIM"
 icon = ExtResource("3_x1jv0")
 flat = true
 alignment = 2
@@ -96,6 +96,6 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("2_28rtf")
 theme_override_font_sizes/font_size = 22
-text = "Награда:"
+text = "QUEST_SLOT_REWARD"
 
 [connection signal="pressed" from="ClaimButton" to="." method="_on_claim_button_pressed"]

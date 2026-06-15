@@ -10,10 +10,11 @@ config_version=5
 
 [application]
 
-config/name="Merge"
-run/main_scene="uid://conlq4u2kh15d"
+config/name="Merge Flowers"
+run/main_scene="res://Scene/Boot.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
-config/icon="res://Textures/icon.svg"
+boot_splash/image="uid://bawupedvmmtkw"
+config/icon="res://Textures/Icon.png"
 
 [autoload]
 
@@ -35,3 +36,4 @@ window/stretch/mode="canvas_items"
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true

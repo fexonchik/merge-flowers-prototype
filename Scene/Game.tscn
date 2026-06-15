@@ -23,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://dl7ccn6aeo4a7" path="res://Textures/BarnIcon.png" id="21_3jynh"]
 [ext_resource type="Texture2D" uid="uid://gfp41yl0cdmj" path="res://Textures/BackButton.png" id="21_hqtje"]
 [ext_resource type="PackedScene" uid="uid://capsskhia8fce" path="res://Scene/SettingsUI.tscn" id="23_0mc8i"]
+[ext_resource type="Texture2D" uid="uid://c8se0vyadfm7e" path="res://Textures/SlotBG2.png" id="24_hbowo"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6nqpc"]
 texture = ExtResource("8_2j816")
@@ -35,7 +36,7 @@ expand_margin_top = 30.0
 expand_margin_right = 30.0
 expand_margin_bottom = 30.0
 
-[node name="Game" type="Node2D" unique_id=1886787022 node_paths=PackedStringArray("tutorial_layer", "tutorial_label", "bobby_character")]
+[node name="Game" type="Node2D" unique_id=1886787022 node_paths=PackedStringArray("tutorial_layer", "tutorial_label", "bobby_character", "ad_confirm_popup", "ad_confirm_title_label", "ad_confirm_label", "ad_confirm_button", "ad_cancel_button")]
 script = ExtResource("1_wbfu4")
 texture_1_seed = ExtResource("2_bxrg2")
 texture_2_sprout_thin = ExtResource("3_ilbig")
@@ -53,6 +54,11 @@ item_scene = ExtResource("2_xkndl")
 tutorial_layer = NodePath("TutorialLayer")
 tutorial_label = NodePath("TutorialLayer/DialogueBox/TutorialLabel")
 bobby_character = NodePath("TutorialLayer/TutorialCharacter")
+ad_confirm_popup = NodePath("AdConfirmPopup")
+ad_confirm_title_label = NodePath("AdConfirmPopup/Panel/Content/VBox/Title")
+ad_confirm_label = NodePath("AdConfirmPopup/Panel/Content/VBox/Message")
+ad_confirm_button = NodePath("AdConfirmPopup/Panel/Content/VBox/Buttons/ConfirmButton")
+ad_cancel_button = NodePath("AdConfirmPopup/Panel/Content/VBox/Buttons/CancelButton")
 
 [node name="Background" type="Node2D" parent="." unique_id=1917897771]
 
@@ -179,6 +185,7 @@ offset_left = 56.0
 offset_top = 96.0
 offset_right = 432.0
 offset_bottom = 224.0
+mouse_filter = 1
 theme_override_colors/font_color = Color(0.95686275, 0.5568628, 0.654902, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
@@ -238,8 +245,117 @@ texture_normal = ExtResource("19_0mc8i")
 [node name="SettingsUI" parent="." unique_id=528602224 instance=ExtResource("23_0mc8i")]
 visible = false
 
+[node name="AdConfirmPopup" type="Control" parent="." unique_id=1653400001]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 648.0
+offset_top = 368.0
+offset_right = 648.0
+offset_bottom = 368.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+
+[node name="Dim" type="ColorRect" parent="AdConfirmPopup" unique_id=1653400002]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.6627451)
+
+[node name="Panel" type="TextureRect" parent="AdConfirmPopup" unique_id=1535605141]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -285.0
+offset_top = -148.0
+offset_right = 285.0
+offset_bottom = 148.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.0093795, 0.9449857)
+texture = ExtResource("24_hbowo")
+expand_mode = 1
+
+[node name="Content" type="MarginContainer" parent="AdConfirmPopup/Panel" unique_id=1653400004]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 84.21017
+offset_top = 46.561546
+offset_right = 44.210144
+offset_bottom = 6.561554
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.77359176, 0.7702325)
+
+[node name="VBox" type="VBoxContainer" parent="AdConfirmPopup/Panel/Content" unique_id=1653400005]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Title" type="Label" parent="AdConfirmPopup/Panel/Content/VBox" unique_id=1653400006]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5882353, 1, 0.30980393, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("7_tujvx")
+theme_override_font_sizes/font_size = 41
+text = "title"
+horizontal_alignment = 1
+
+[node name="Message" type="Label" parent="AdConfirmPopup/Panel/Content/VBox" unique_id=1653400007]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("7_tujvx")
+theme_override_font_sizes/font_size = 30
+text = "message"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Buttons" type="HBoxContainer" parent="AdConfirmPopup/Panel/Content/VBox" unique_id=1653400008]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="CancelButton" type="Button" parent="AdConfirmPopup/Panel/Content/VBox/Buttons" unique_id=1653400009]
+custom_minimum_size = Vector2(170, 56)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5882353, 1, 0.30980393, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("7_tujvx")
+theme_override_font_sizes/font_size = 32
+text = "cancel"
+flat = true
+
+[node name="ConfirmButton" type="Button" parent="AdConfirmPopup/Panel/Content/VBox/Buttons" unique_id=1653400010]
+custom_minimum_size = Vector2(220, 56)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5882353, 1, 0.30980393, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("7_tujvx")
+theme_override_font_sizes/font_size = 32
+text = "confirm"
+flat = true
+autowrap_mode = 2
+
 [connection signal="pressed" from="CanvasLayer/MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/ReadmeButton" to="." method="_on_readme_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/ReadmePanel/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="AdConfirmPopup/Panel/Content/VBox/Buttons/CancelButton" to="." method="_on_ad_cancel_button_pressed"]
+[connection signal="pressed" from="AdConfirmPopup/Panel/Content/VBox/Buttons/ConfirmButton" to="." method="_on_ad_confirm_button_pressed"]

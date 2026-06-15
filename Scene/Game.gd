@@ -20,7 +20,12 @@ extends Node2D
 @export var tutorial_layer: CanvasLayer
 @export var tutorial_label: Label
 @export var tutorial_arrow: Sprite2D
-@export var bobby_character: TextureRect 
+@export var bobby_character: TextureRect
+@export var ad_confirm_popup: Control
+@export var ad_confirm_title_label: Label
+@export var ad_confirm_label: Label
+@export var ad_confirm_button: Button
+@export var ad_cancel_button: Button
 
 @export_group("Tutorial Markers")
 @export var point_generator: Marker2D
@@ -32,10 +37,12 @@ var is_tutorial_active := false
 var last_empty_generator_id := -1
 var last_empty_generator_tap_time := -100.0
 var last_empty_generator_hint_time := -100.0
+var last_generator_ad_popup_time := -100.0
 var pending_rewarded_ad_type := ""
 
 const EMPTY_GENERATOR_DOUBLE_TAP_WINDOW := 3.0
 const EMPTY_GENERATOR_HINT_COOLDOWN := 30.0
+const GENERATOR_AD_POPUP_COOLDOWN := 30.0
 
 # Константы сетки
 const GRID_SIZE := 6
@@ -47,6 +54,11 @@ const PANEL_ITEM_SIZE := 225.0
 
 func _ready():
 	randomize()
+	pending_rewarded_ad_type = ""
+	if ad_confirm_popup:
+		ad_confirm_popup.visible = false
+	if not Global.is_connected("language_changed", _on_language_changed):
+		Global.language_changed.connect(_on_language_changed)
 	if Global.session_started_at <= 0.0:
 		Global.session_started_at = Time.get_unix_time_from_system()
 	setup_textures_in_global()
@@ -70,6 +82,8 @@ func _ready():
 
 	if not Ads.rewarded_ad_completed.is_connected(_on_rewarded_ad_completed):
 		Ads.rewarded_ad_completed.connect(_on_rewarded_ad_completed)
+
+	apply_ad_confirm_localization()
 
 	if not Global.is_tutorial_done:
 		call_deferred("start_tutorial")
@@ -140,6 +154,8 @@ func update_bobby(text: String, _mood: String = ""):
 func show_temporary_bobby_hint(text: String, duration: float = 3.0):
 	if not tutorial_layer:
 		return
+	if ad_confirm_popup:
+		ad_confirm_popup.visible = false
 	update_bobby(text)
 	var expected_text = text
 	var tutorial_was_active = is_tutorial_active and not Global.is_tutorial_done
@@ -166,8 +182,14 @@ func maybe_show_empty_generator_bobby_hint(item_id: int):
 	if now - last_empty_generator_hint_time < EMPTY_GENERATOR_HINT_COOLDOWN:
 		return
 	last_empty_generator_hint_time = now
-	var generator_name = str(Global.items_data[item_id].get("name", "генератор"))
-	show_temporary_bobby_hint("Сейчас %s пуста. Можешь пока объединять предметы и вернуться чуть позже." % generator_name.to_lower(), 3.5)
+	var generator_name_key := "generator_name_default"
+	match item_id:
+		101:
+			generator_name_key = "meadow_name"
+		102:
+			generator_name_key = "pond_name"
+	var generator_name = Global.loc(generator_name_key).to_lower()
+	show_temporary_bobby_hint(Global.loc("game_generator_empty_hint", {"generator": generator_name}), 3.5)
 
 func _on_inventory_changed():
 	if Global.is_tutorial_done:
@@ -180,12 +202,12 @@ func _on_inventory_changed():
 			Global.tutorial_step = 8; Global.save_game()
 			update_bobby(Global.get_bobby_text("Game"), "happy")
 		else:
-			update_bobby("Нужно еще " + str(3 - count) + " косточки.")
+			update_bobby(Global.loc("game_need_more_seeds", {"count": 3 - count}))
 		return
 	if Global.active_quests.size() > 0:
 		var q = Global.active_quests[0]
 		var cur = Global.get_item_count_in_inventory(int(q["require_id"]))
-		if cur >= int(q["require_count"]): update_bobby("Заказ готов! Иди к воротам!", "happy")
+		if cur >= int(q["require_count"]): update_bobby(Global.loc("game_order_ready"), "happy")
 
 func _input(event):
 	if is_tutorial_active and event is InputEventMouseButton and event.pressed:
@@ -193,8 +215,17 @@ func _input(event):
 		if step in [1, 3, 4, 6]: next_tutorial_step()
 
 func start_tutorial():
+	var step = int(Global.tutorial_step)
+	if Global.is_tutorial_done or step >= 11:
+		is_tutorial_active = false
+		if tutorial_layer:
+			tutorial_layer.visible = false
+		if tutorial_arrow:
+			tutorial_arrow.visible = false
+		return
 	is_tutorial_active = true
-	if int(Global.tutorial_step) <= 1: Global.tutorial_step = 1
+	if step <= 1:
+		Global.tutorial_step = 1
 	update_bobby(Global.get_bobby_text("Game"))
 
 func next_tutorial_step():
@@ -212,25 +243,29 @@ func show_arrow(pos: Vector2):
 
 func use_generator(item):
 	var step = int(Global.tutorial_step)
-	if is_tutorial_active and not step in [2, 5]: return
+	var tutorial_seed_recovery: bool = is_tutorial_active and item.item_id == 101 and step >= 2 and step < 8 and needs_tutorial_seed_recovery()
+	if is_tutorial_active and not step in [2, 5] and not tutorial_seed_recovery: return
 	if not has_generator_charge(item.item_id):
 		Global.play_sound("error")
 		if item.has_method("show_generator_cooldown_hint"):
 			item.show_generator_cooldown_hint(get_generator_time_left(item.item_id))
-		if item.item_id in [101, 102] and Global.can_claim_generator_ad(item.item_id):
-			request_rewarded_ad("generator_" + str(item.item_id))
+		if item.item_id in [101, 102] and Global.can_claim_generator_ad(item.item_id) and can_show_generator_ad_popup():
+			show_generator_ad_confirm(item.item_id)
 		else:
+			pending_rewarded_ad_type = ""
 			maybe_show_empty_generator_bobby_hint(item.item_id)
 		return
 	var empty_cell = find_nearest_empty_cell()
 	if empty_cell != Vector2i(-1, -1):
 		consume_generator_charge(item.item_id)
 		Global.play_sound("spawn")
-		var spawn_id = 1 if is_tutorial_active else Global.items_data[item.item_id]["spawn_list"].pick_random()
+		var spawn_id = 1 if (is_tutorial_active and item.item_id == 101 and step < 8) else Global.items_data[item.item_id]["spawn_list"].pick_random()
 		spawn_item(empty_cell, spawn_id)
 		if item.has_method("update_generator_charge_label"):
 			item.update_generator_charge_label(get_generator_charge_text(item.item_id))
 		if is_tutorial_active and (step == 2 or step == 5): next_tutorial_step()
+		elif tutorial_seed_recovery:
+			refresh_tutorial_after_seed_spawn()
 		save_current_grid(); Global.save_game()
 
 func format_seconds_to_mmss(seconds: float) -> String:
@@ -239,29 +274,107 @@ func format_seconds_to_mmss(seconds: float) -> String:
 	var secs = total_seconds % 60
 	return "%02d:%02d" % [minutes, secs]
 
+func get_generator_ad_reward_amount(gen_id: int) -> int:
+	match gen_id:
+		101:
+			return 10
+		102:
+			return 2
+	return 0
+
+func get_generator_name_key(gen_id: int) -> String:
+	match gen_id:
+		101:
+			return "meadow_name"
+		102:
+			return "pond_name"
+	return "generator_name_default"
+
+func get_generator_ad_confirm_text(gen_id: int) -> String:
+	var generator_name = Global.loc(get_generator_name_key(gen_id))
+	var charges = get_generator_ad_reward_amount(gen_id)
+	return Global.loc("game_generator_ad_confirm", {
+		"generator": generator_name
+	}) + "\n" + Global.loc("game_generator_ad_reward_line", {
+		"generator": generator_name,
+		"charges": charges
+	})
+
+func apply_ad_confirm_localization():
+	if ad_confirm_title_label:
+		ad_confirm_title_label.text = Global.loc("game_generator_ad_title")
+	if ad_confirm_button:
+		ad_confirm_button.text = Global.loc("game_generator_ad_button_confirm")
+	if ad_cancel_button:
+		ad_cancel_button.text = Global.loc("game_generator_ad_button_cancel")
+
+func can_show_generator_ad_popup() -> bool:
+	return Time.get_unix_time_from_system() - last_generator_ad_popup_time >= GENERATOR_AD_POPUP_COOLDOWN
+
+func show_generator_ad_confirm(gen_id: int):
+	last_generator_ad_popup_time = Time.get_unix_time_from_system()
+	pending_rewarded_ad_type = "generator_" + str(gen_id)
+	apply_ad_confirm_localization()
+	if ad_confirm_label:
+		ad_confirm_label.text = get_generator_ad_confirm_text(gen_id)
+	if ad_confirm_popup:
+		ad_confirm_popup.visible = true
+
+func hide_generator_ad_confirm():
+	if ad_confirm_popup:
+		ad_confirm_popup.visible = false
+	if ad_confirm_label:
+		ad_confirm_label.text = ""
+
 func request_rewarded_ad(reward_type: String):
 	if reward_type == "generator_101" and not Global.can_claim_generator_ad(101):
+		pending_rewarded_ad_type = ""
+		hide_generator_ad_confirm()
 		return
 	if reward_type == "generator_102" and not Global.can_claim_generator_ad(102):
+		pending_rewarded_ad_type = ""
+		hide_generator_ad_confirm()
 		return
-	pending_rewarded_ad_type = reward_type
+	hide_generator_ad_confirm()
 	Ads.show_rewarded_ad(reward_type)
 
 func grant_ad_reward(reward_type: String):
 	if reward_type == "generator_101":
 		add_generator_charges(101, 10)
 		Global.mark_generator_ad_claimed(101)
-		show_temporary_bobby_hint("Реклама просмотрена! Клумба получила +10 зарядов.", 2.5)
+		show_temporary_bobby_hint(Global.loc("game_ad_reward_meadow"), 2.5)
 	elif reward_type == "generator_102":
 		add_generator_charges(102, 2)
 		Global.mark_generator_ad_claimed(102)
-		show_temporary_bobby_hint("Реклама просмотрена! Пруд получил +2 заряда.", 2.5)
+		show_temporary_bobby_hint(Global.loc("game_ad_reward_pond"), 2.5)
 
 func _on_rewarded_ad_completed(reward_type: String):
 	if reward_type != pending_rewarded_ad_type:
 		return
 	pending_rewarded_ad_type = ""
 	grant_ad_reward(reward_type)
+
+func _on_rewarded_ad_failed(reward_type: String):
+	if reward_type != pending_rewarded_ad_type:
+		return
+	pending_rewarded_ad_type = ""
+	hide_generator_ad_confirm()
+
+func _on_ad_confirm_button_pressed():
+	if pending_rewarded_ad_type.is_empty():
+		return
+	request_rewarded_ad(pending_rewarded_ad_type)
+
+func _on_ad_cancel_button_pressed():
+	pending_rewarded_ad_type = ""
+	hide_generator_ad_confirm()
+
+func _on_language_changed(_new_language):
+	apply_ad_confirm_localization()
+	if ad_confirm_popup and ad_confirm_popup.visible and pending_rewarded_ad_type.begins_with("generator_"):
+		var gen_id = int(pending_rewarded_ad_type.trim_prefix("generator_"))
+		if ad_confirm_label:
+			ad_confirm_label.text = get_generator_ad_confirm_text(gen_id)
 
 func add_generator_charges(gen_id: int, amount: int):
 	if not Global.generator_states.has(gen_id):
@@ -319,6 +432,7 @@ func merge_items(dragged, target, coord):
 	grid[dragged.grid_position.x][dragged.grid_position.y]["item"] = null
 	grid[coord.x][coord.y]["item"] = null
 	dragged.queue_free(); target.queue_free(); spawn_item(coord, next_id)
+	refresh_tutorial_after_seed_merge()
 	save_current_grid(); Global.save_game()
 
 func collect_to_inventory(item):
@@ -356,7 +470,7 @@ func collect_to_inventory(item):
 			item.return_to_cell()
 	else:
 		Global.play_sound("error")
-		show_temporary_bobby_hint("Этот предмет еще слишком мал!", 1.8)
+		show_temporary_bobby_hint(Global.loc("game_item_too_small"), 1.8)
 		item.return_to_cell()
 
 func create_grid():
@@ -466,6 +580,8 @@ func shake_barn_icon():
 		tw.tween_property($BarnIcon, "position:x", $BarnIcon.position.x, 0.05)
 
 func _on_back_button_pressed():
+	pending_rewarded_ad_type = ""
+	hide_generator_ad_confirm()
 	save_current_grid()
 	if Global.get_item_count_in_inventory(1) >= 3 and int(Global.tutorial_step) < 8: Global.tutorial_step = 8
 	Global.save_game()
@@ -481,6 +597,54 @@ func remove_item_from_grid(coord: Vector2i):
 func spawn_start_items():
 	# Оставляем одну косточку (ID 1) в центре, чтобы игрок начал туториал
 	spawn_item(Vector2i(2, 1), 1)
+
+func needs_tutorial_seed_recovery() -> bool:
+	var step = int(Global.tutorial_step)
+	if Global.is_tutorial_done or step < 2 or step >= 8:
+		return false
+	var quest_requires_seeds := false
+	if not Global.active_quests.is_empty():
+		var quest = Global.active_quests[0]
+		quest_requires_seeds = int(quest.get("require_id", -1)) == 1 and int(quest.get("require_count", 0)) >= 3
+	if not quest_requires_seeds:
+		return false
+	var total_seeds = Global.get_item_count_in_inventory(1) + count_items_on_field(1)
+	return total_seeds < 3
+
+func count_items_on_field(item_id: int) -> int:
+	var count := 0
+	for x in range(GRID_SIZE):
+		for y in range(GRID_SIZE):
+			var cell = grid[x][y]["item"]
+			if cell and int(cell.item_id) == item_id:
+				count += 1
+	return count
+
+func refresh_tutorial_after_seed_spawn():
+	if not is_tutorial_active or Global.is_tutorial_done:
+		return
+	var step = int(Global.tutorial_step)
+	if step >= 2 and step < 8 and needs_tutorial_seed_recovery():
+		if tutorial_arrow and point_generator:
+			show_arrow(point_generator.global_position)
+		update_bobby(Global.loc("game_need_more_seeds", {"count": 3 - (Global.get_item_count_in_inventory(1) + count_items_on_field(1))}))
+		return
+	if step >= 2 and step < 8:
+		Global.tutorial_step = 7
+		Global.save_game()
+		if tutorial_arrow:
+			tutorial_arrow.visible = false
+		show_arrow(barn_pos)
+		update_bobby(Global.get_bobby_text("Game"), "happy")
+
+func refresh_tutorial_after_seed_merge():
+	if not is_tutorial_active or Global.is_tutorial_done:
+		return
+	var step = int(Global.tutorial_step)
+	if step >= 2 and step < 8 and needs_tutorial_seed_recovery():
+		if tutorial_arrow and point_generator:
+			show_arrow(point_generator.global_position)
+		update_bobby(Global.loc("game_need_more_seeds", {"count": 3 - (Global.get_item_count_in_inventory(1) + count_items_on_field(1))}))
 
 
 func refresh_generator_charges(now: float):
@@ -538,7 +702,7 @@ func get_generator_charge_text(gen_id: int) -> String:
 	if charges > 0:
 		return str(charges) + "/" + str(max_charges)
 	var seconds_left = int(ceil(get_generator_time_left(gen_id)))
-	return str(seconds_left) + "с"
+	return Global.loc("game_seconds_short", {"seconds": seconds_left})
 
 func get_generator_cooldown(gen_id: int) -> float:
 	var base_cooldown = float(Global.items_data[gen_id].get("cooldown", 1.0))

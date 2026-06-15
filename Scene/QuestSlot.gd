@@ -17,8 +17,8 @@ func setup(data: Dictionary):
 	quest_data["require_count"] = req_count
 	quest_data["reward"] = reward_val
 
-	$Title.text = data["title"]
-	$RewardLabel.text = "Награда: " + str(reward_val) + " $"
+	$Title.text = _get_localized_text(data.get("title", ""))
+	$RewardLabel.text = Global.loc("reward_label", {"reward": reward_val})
 	
 	# Теперь используем очищенный от точек req_id
 	if Global.items_data.has(req_id):
@@ -39,10 +39,15 @@ func update_status():
 	# Если предметов хватает, кнопка активна, если нет — выключена
 	if current >= needed:
 		$ClaimButton.disabled = false
-		$ClaimButton.text = "Сдать!"
+		$ClaimButton.text = Global.loc("claim_ready")
 	else:
 		$ClaimButton.disabled = true
-		$ClaimButton.text = "Нужно еще..."
+		$ClaimButton.text = Global.loc("claim_need_more")
+
+func _get_localized_text(value) -> String:
+	if value is Dictionary:
+		return str(value.get(Global.current_language, value.get("ru", "")))
+	return str(value)
 
 func _on_claim_button_pressed():
 	# Передаем ID как целое число

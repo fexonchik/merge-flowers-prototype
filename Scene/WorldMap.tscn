@@ -82,18 +82,20 @@ offset_bottom = 496.0
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("6_yrjga")
 
-[node name="Label" type="Label" parent="TextureRect7" unique_id=305850335]
+[node name="Ворота" type="Label" parent="TextureRect7" unique_id=305850335]
 layout_mode = 0
-offset_left = 119.99999
-offset_top = 90.00001
-offset_right = 296.0
-offset_bottom = 151.0
+offset_left = 106.66666
+offset_top = 80.00003
+offset_right = 278.38965
+offset_bottom = 154.33304
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("7_n2bu3")
 theme_override_font_sizes/font_size = 48
 text = "Ворота"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="TextureRect3" type="TextureRect" parent="." unique_id=1658883858]
 layout_mode = 0
@@ -104,17 +106,19 @@ offset_bottom = 416.0
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("6_yrjga")
 
-[node name="Label" type="Label" parent="TextureRect3" unique_id=289684829]
+[node name="Лавка" type="Label" parent="TextureRect3" unique_id=289684829]
 layout_mode = 0
-offset_left = 119.999985
-offset_top = 90.00001
-offset_right = 264.0
-offset_bottom = 151.0
+offset_left = 119.245
+offset_top = 87.05
+offset_right = 262.5802
+offset_bottom = 148.0499
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("7_n2bu3")
 theme_override_font_sizes/font_size = 48
 text = "Лавка"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="TextureRect4" type="TextureRect" parent="." unique_id=2108817253]
 layout_mode = 0
@@ -125,17 +129,19 @@ offset_bottom = 424.0
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("6_yrjga")
 
-[node name="Label" type="Label" parent="TextureRect4" unique_id=1936689227]
+[node name="Амбар" type="Label" parent="TextureRect4" unique_id=1936689227]
 layout_mode = 0
-offset_left = 119.99999
-offset_top = 90.00001
-offset_right = 296.0
-offset_bottom = 151.0
+offset_left = 102.57
+offset_top = 86.61
+offset_right = 278.5697
+offset_bottom = 147.60983
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("7_n2bu3")
 theme_override_font_sizes/font_size = 48
 text = "Амбар"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="TextureRect5" type="TextureRect" parent="." unique_id=303466029]
 layout_mode = 0
@@ -146,22 +152,24 @@ offset_bottom = 560.0
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("6_yrjga")
 
-[node name="Label" type="Label" parent="TextureRect5" unique_id=1524864656]
+[node name="Ферма" type="Label" parent="TextureRect5" unique_id=1524864656]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -4.236
 anchor_top = -1.9790001
 anchor_right = -4.236
 anchor_bottom = -1.9790001
-offset_left = 1746.624
-offset_top = 596.624
-offset_right = 1922.624
-offset_bottom = 657.624
+offset_left = 1730.594
+offset_top = 592.314
+offset_right = 1906.5934
+offset_bottom = 653.314
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("7_n2bu3")
 theme_override_font_sizes/font_size = 48
 text = "Ферма"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="BarnUI" parent="." unique_id=1795725289 instance=ExtResource("9_6hti5")]
 visible = false
@@ -208,10 +216,10 @@ visible = false
 
 [node name="TutorialCharacter" type="TextureRect" parent="TutorialLayer" unique_id=337616086]
 anchors_preset = -1
-offset_left = 200.0
-offset_top = 224.00003
-offset_right = 1373.3333
-offset_bottom = 2344.0
+offset_left = 168.0
+offset_top = 272.0
+offset_right = 1341.3333
+offset_bottom = 2392.0
 scale = Vector2(0.3, 0.3)
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -220,10 +228,11 @@ stretch_mode = 5
 metadata/_edit_use_anchors_ = true
 
 [node name="DialogueBox" type="TextureRect" parent="TutorialLayer" unique_id=556981204]
-offset_left = 536.0
-offset_top = 264.0
-offset_right = 1016.0
-offset_bottom = 624.0
+offset_left = 504.0
+offset_top = 311.99997
+offset_right = 984.0
+offset_bottom = 672.0
+mouse_filter = 2
 texture = ExtResource("16_qv061")
 expand_mode = 1
 
@@ -262,7 +271,7 @@ offset_bottom = 293.0
 scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("19_txrjf")
 
-[node name="Label" type="Label" parent="InfoButton" unique_id=442052294]
+[node name="Инфо" type="Label" parent="InfoButton" unique_id=442052294]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -1.0400001
@@ -294,16 +303,15 @@ texture = ExtResource("19_txrjf")
 [node name="DailyAdButton" type="Button" parent="." unique_id=1187845001]
 layout_mode = 0
 offset_left = 656.0
-offset_top = 16.0
+offset_top = 17.345
 offset_right = 1024.0
-offset_bottom = 192.0
+offset_bottom = 193.345
 scale = Vector2(0.5152907, 0.5079735)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("7_n2bu3")
 theme_override_font_sizes/font_size = 43
-text = "Ежедневный бонус за рекламу"
 flat = true
 autowrap_mode = 2
 

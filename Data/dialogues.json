@@ -1,30 +1,90 @@
 {
   "MainMenu": {
-    "step_0": "Привет! Я садовник Боби. Давай построим лучшую ферму!",
-    "step_1": "Нажимай ИГРАТЬ, и начнем работу!",
-    "already_started": "Рад тебя видеть снова! Продолжим?"
+    "step_0": {
+      "ru": "Привет! Я садовник Боби. Давай построим лучшую ферму! Нажимай ИГРАТЬ, и начнем работу!",
+      "en": "Hi! I'm Bobby the gardener. Let's build the best flower farm!"
+    },
+    "step_1": {
+      "ru": "Нажимай ИГРАТЬ, и начнем работу!",
+      "en": "Press PLAY and let's get started!"
+    },
+    "already_started": {
+      "ru": "Рад тебя видеть снова! Продолжим?",
+      "en": "Glad to see you again! Shall we continue?"
+    }
   },
   "WorldMap": {
-    "step_1": "Заходи на ФЕРМУ, пора вырастить первые цветы!",
-    "step_2_to_7": "Нужно продолжить работу в саду! Возвращайся на ферму.",
-    "step_8": "Отлично! Теперь жми на ВОРОТА и сдай наш первый заказ.",
-    "step_10": "Ого, сколько монет! Давай заглянем в ЛАВКУ и купим рюкзак.",
-    "step_11": "Ты разобрался с начальной стадией.  Удачи! Я пошел отдыхать.",
-    "step_12": "Я не верю своим глазам... 5 машин цветов! Ты — легенда этого города. Теперь я могу спокойно уйти на пенсию. Ты лучший фермер!"
+    "step_1": {
+      "ru": "Заходи на ФЕРМУ, пора вырастить первые цветы!",
+      "en": "Head to the FARM, it's time to grow our first flowers!"
+    },
+    "step_2_to_7": {
+      "ru": "Нужно продолжить работу в саду! Возвращайся на ферму.",
+      "en": "We need to keep working in the garden! Go back to the farm."
+    },
+    "step_8": {
+      "ru": "Отлично! Теперь жми на ВОРОТА и сдай наш первый заказ.",
+      "en": "Great! Now tap the GATE and complete our first order."
+    },
+    "step_10": {
+      "ru": "Ого, сколько монет! Теперь нажми на ЛАВКУ и купи рюкзак.",
+      "en": "Wow, that's a lot of coins! Now tap the SHOP and buy a backpack upgrade."
+    },
+    "step_11": {
+      "ru": "Ты разобрался с начальной стадией. Удачи! Я пошел отдыхать.",
+      "en": "You've mastered the basics. Good luck! I'm off to rest."
+    },
+    "step_12": {
+      "ru": "Я не верю своим глазам... 5 машин цветов! Ты — легенда этого города. Теперь я могу спокойно уйти на пенсию. Ты лучший фермер!",
+      "en": "I can't believe my eyes... 5 flower trucks! You're a legend of this town. Now I can finally retire in peace. You're the best farmer!"
+    }
   },
   "Game": {
-    "step_2": "Для начала нажми на Клумбу слева, чтобы получить первые семена.",
-    "step_3": "Отлично! Это косточки. Нам нужно собрать 3 штуки.",
-    "step_4": "Обычно я разрешаю брать только крупные растения, но сейчас — исключение!",
-    "step_5": "Нажми на Клумбу еще раз, нам нужно больше семян.",
-    "step_6": "Теперь перетащи косточку в рюкзак. Видишь иконку сумки?",
-    "step_7": "Собери так 3 косточки. Я буду ждать!",
-    "step_8": "Всё готово! Выходи на карту и иди к ВОРОТАМ.",
-    "step_12": "Я не верю своим глазам... 5 машин цветов! Ты — легенда этого города. Ты лучший!"
+    "step_2": {
+      "ru": "Для начала нажми на Клумбу слева, чтобы получить первые семена.",
+      "en": "First, tap the Flower Bed on the left to get your first seeds."
+    },
+    "step_3": {
+      "ru": "Отлично! Это косточки. Нам нужно собрать 3 штуки.",
+      "en": "Great! These are seeds. We need to collect 3 of them."
+    },
+    "step_4": {
+      "ru": "Обычно я разрешаю брать только крупные растения, но сейчас — исключение!",
+      "en": "I usually allow only bigger plants to be picked, but we'll make an exception for now!"
+    },
+    "step_5": {
+      "ru": "Нажми на Клумбу еще раз, нам нужно больше семян.",
+      "en": "Tap the Flower Bed again, we need more seeds."
+    },
+    "step_6": {
+      "ru": "Теперь перетащи косточку в рюкзак. Видишь иконку сумки?",
+      "en": "Now drag a seed into the backpack. See the bag icon?"
+    },
+    "step_7": {
+      "ru": "Собери так 3 косточки. Я буду ждать!",
+      "en": "Collect 3 seeds like that. I'll be waiting!"
+    },
+    "step_8": {
+      "ru": "Все готово! Выходи на карту и иди к ВОРОТАМ.",
+      "en": "Everything is ready! Go back to the map and head to the GATE."
+    },
+    "step_12": {
+      "ru": "Я не верю своим глазам... 5 машин цветов! Ты — легенда этого города. Ты лучший!",
+      "en": "I can't believe my eyes... 5 flower trucks! You're a legend of this town. You're the best!"
+    }
   },
   "hints": {
-    "backpack_full": "Амбар переполнен! Нужно что-то продать.",
-    "item_too_small": "Этот предмет еще слишком мал! Но если он нужен для квеста — я разрешаю.",
-    "need_crystals": "Для этой покупки нужно еще больше кристаллов!"
+    "backpack_full": {
+      "ru": "Амбар переполнен! Нужно что-то продать.",
+      "en": "The barn is full! You need to sell something."
+    },
+    "item_too_small": {
+      "ru": "Этот предмет еще слишком мал! Но если он нужен для квеста — я разрешаю.",
+      "en": "This item is still too small! But if it's needed for a quest, I'll allow it."
+    },
+    "need_crystals": {
+      "ru": "Для этой покупки нужно еще больше кристаллов!",
+      "en": "You need more crystals for this purchase!"
+    }
   }
 }

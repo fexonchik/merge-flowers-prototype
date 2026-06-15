@@ -3,15 +3,19 @@ extends CanvasLayer
 @export var slot_scene: PackedScene
 
 @onready var grid = $TextureRect/ScrollContainer/GridContainer
+@onready var hint_label = $Label
 
 const MAX_SLOTS = 24 # Сколько всего мест в амбаре
 
 func _ready():
 	# Когда инвентарь меняется (включая сдачу квеста), амбар сам себя перерисует
 	Global.inventory_changed.connect(refresh_inventory)
+	if not Global.is_connected("language_changed", _on_language_changed):
+		Global.language_changed.connect(_on_language_changed)
 
 func open_barn():
 	self.visible = true
+	_apply_localization()
 	refresh_inventory()
 
 func refresh_inventory():
@@ -33,7 +37,7 @@ func refresh_inventory():
 			
 			var sell_btn = new_slot.get_node("SellButton")
 			if item_data["price"] > 0:
-				sell_btn.text = str(item_data["price"]) + "$"
+				sell_btn.text = str(item_data["price"]) + " $"
 				sell_btn.visible = true
 				if sell_btn.pressed.is_connected(_on_sell_item):
 					sell_btn.pressed.disconnect(_on_sell_item)
@@ -42,6 +46,14 @@ func refresh_inventory():
 			# Ячейка пустая, но она ВИДНА как пустой квадрат
 			new_slot.get_node("Icon").visible = false
 			new_slot.get_node("SellButton").visible = false
+
+func _on_language_changed(_new_language):
+	_apply_localization()
+	if visible:
+		refresh_inventory()
+
+func _apply_localization():
+	hint_label.text = Global.loc("barn_sell_hint")
 
 func _on_sell_item(index: int):
 	var item_id = Global.inventory[index]
